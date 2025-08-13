@@ -101,7 +101,8 @@ const DeleteAccount = () => {
     setError('')
 
     try {
-      const response = await fetch('/api/delete-account', {
+      const API_BASE_URL = 'https://serpyx.onrender.com'
+      const response = await fetch(`${API_BASE_URL}/api/delete-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

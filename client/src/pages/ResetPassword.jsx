@@ -68,7 +68,8 @@ const ResetPassword = () => {
     setError('')
 
     try {
-      const response = await fetch('/api/reset-password', {
+      const API_BASE_URL = 'https://serpyx.onrender.com'
+      const response = await fetch(`${API_BASE_URL}/api/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

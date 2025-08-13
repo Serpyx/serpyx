@@ -36,7 +36,8 @@ const VerifyEmail = () => {
       }
 
       try {
-        const response = await fetch(`/api/verify-email?token=${token}`)
+        const API_BASE_URL = 'https://serpyx.onrender.com'
+        const response = await fetch(`${API_BASE_URL}/api/verify-email?token=${token}`)
         const data = await response.json()
 
         if (data.success) {
