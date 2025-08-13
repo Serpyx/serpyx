@@ -32,7 +32,8 @@ const ForgotPassword = () => {
     setSuccess(false)
 
     try {
-      const response = await fetch('/api/forgot-password', {
+      const API_BASE_URL = 'https://serpyx.onrender.com'
+      const response = await fetch(`${API_BASE_URL}/api/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

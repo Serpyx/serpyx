@@ -58,7 +58,8 @@ const Login = () => {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 15000)
 
-      const response = await fetch('/api/login', {
+      const API_BASE_URL = 'https://serpyx.onrender.com'
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

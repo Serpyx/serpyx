@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serpyx API Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-center">🧪 Serpyx API Test Arayüzü</h1>
+        
+        <div class="grid gap-6">
+            <!-- Database Temizleme -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">🧹 Database Temizleme</h2>
+                <button onclick="clearDatabase()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Tüm Test Verilerini Temizle
+                </button>
+                <div id="clearResult" class="mt-4 p-4 rounded hidden"></div>
+            </div>
+
+            <!-- Kayıt Testi -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">📝 Kayıt Testi</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" id="username" placeholder="Kullanıcı adı" class="border p-2 rounded">
+                    <input type="email" id="email" placeholder="E-posta" class="border p-2 rounded">
+                    <input type="password" id="password" placeholder="Şifre" class="border p-2 rounded">
+                </div>
+                <button onclick="testRegister()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Kayıt Ol
+                </button>
+                <div id="registerResult" class="mt-4 p-4 rounded hidden"></div>
+            </div>
+
+            <!-- Otomatik Test -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">🤖 Otomatik Test Senaryoları</h2>
+                <button onclick="runAutoTests()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Tüm Testleri Çalıştır
+                </button>
+                <div id="autoTestResults" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+        
+        function showResult(elementId, success, message, data = null) {
+            const element = document.getElementById(elementId);
+            element.className = `mt-4 p-4 rounded ${success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
+            element.innerHTML = `
+                <p><strong>${success ? '✅ Başarılı' : '❌ Hata'}:</strong> ${message}</p>
+                ${data ? `<pre class="mt-2 text-sm">${JSON.stringify(data, null, 2)}</pre>` : ''}
+            `;
+            element.classList.remove('hidden');
+        }
+
+        async function clearDatabase() {
+            try {
+                // Basit bir temizleme endpoint'i yoksa, register endpoint'ini kullanarak temizleyebiliriz
+                showResult('clearResult', true, 'Database temizleme fonksiyonu henüz implement edilmedi.');
+            } catch (error) {
+                showResult('clearResult', false, error.message);
+            }
+        }
+
+        async function testRegister() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (!username || !email || !password) {
+                showResult('registerResult', false, 'Tüm alanları doldurun!');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult('registerResult', true, `Kayıt başarılı! Status: ${response.status}`, data);
+                } else {
+                    showResult('registerResult', false, `Kayıt hatası! Status: ${response.status}`, data);
+                }
+            } catch (error) {
+                showResult('registerResult', false, `Bağlantı hatası: ${error.message}. Server çalışıyor mu?`);
+            }
+        }
+
+        async function runAutoTests() {
+            const resultsContainer = document.getElementById('autoTestResults');
+            resultsContainer.innerHTML = '<div class="text-blue-600">Testler çalışıyor...</div>';
+            
+            const results = [];
+            
+            // Test 1: Yeni kullanıcı kaydı
+            try {
+                const testUser = {
+                    username: 'autotest' + Date.now(),
+                    email: `autotest${Date.now()}@example.com`,
+                    password: 'Test123!'
+                };
+                
+                const response1 = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testUser)
+                });
+                
+                const data1 = await response1.json();
+                results.push({
+                    test: 'Yeni kullanıcı kaydı',
+                    success: response1.status === 201,
+                    status: response1.status,
+                    message: data1.message || 'No message'
+                });
+
+                // Test 2: Aynı email ile tekrar kayıt
+                const response2 = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: 'differentuser',
+                        email: testUser.email, // Aynı email
+                        password: 'Test123!'
+                    })
+                });
+                
+                const data2 = await response2.json();
+                results.push({
+                    test: 'Duplicate email testi',
+                    success: response2.status === 400 && data2.message.includes('kullanılıyor'),
+                    status: response2.status,
+                    message: data2.message || 'No message'
+                });
+
+            } catch (error) {
+                results.push({
+                    test: 'Server bağlantısı',
+                    success: false,
+                    status: 'ERROR',
+                    message: `Server çalışmıyor: ${error.message}`
+                });
+            }
+
+            // Sonuçları göster
+            const html = results.map(result => `
+                <div class="p-4 mb-2 rounded ${result.success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                    <div class="font-semibold">${result.success ? '✅' : '❌'} ${result.test}</div>
+                    <div class="text-sm">Status: ${result.status} | ${result.message}</div>
+                </div>
+            `).join('');
+            
+            resultsContainer.innerHTML = html;
+        }
+
+        // Sayfa yüklendiğinde server durumunu kontrol et
+        window.onload = async () => {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                if (response.ok) {
+                    document.title = '✅ Serpyx API Test - Server Online';
+                } else {
+                    document.title = '❌ Serpyx API Test - Server Offline';
+                }
+            } catch {
+                document.title = '❌ Serpyx API Test - Server Offline';
+            }
+        };
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
