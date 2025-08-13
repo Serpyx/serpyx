@@ -44,7 +44,7 @@ db.exec(`
 
 // Middleware
 app.use(cors({ 
-  origin: 'http://localhost:3000', 
+  origin: ['http://localhost:3000', 'https://serpyx.com', 'https://www.serpyx.com'], 
   credentials: true 
 }))
 app.use(express.json())
