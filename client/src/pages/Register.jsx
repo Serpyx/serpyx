@@ -83,12 +83,14 @@ const Register = () => {
     setIsLoading(true)
     setError('')
 
+
+
     try {
       // ⏱️ TIMEOUT İLE FETCH - 15 saniye timeout
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 15000)
 
-      const API_BASE_URL = 'https://serpyx.onrender.com'
+      const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://serpyx.com' : 'http://localhost:80'
       const response = await fetch(`${API_BASE_URL}/api/register`, {
         method: 'POST',
         headers: {

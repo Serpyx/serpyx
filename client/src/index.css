@@ -9,6 +9,254 @@
   }
 }
 
+/* Mobil Responsive Düzenlemeler */
+@media (max-width: 768px) {
+  .mobile-container {
+    @apply px-4;
+  }
+  
+  .mobile-text-sm {
+    @apply text-sm;
+  }
+  
+  .mobile-text-xs {
+    @apply text-xs;
+  }
+  
+  .mobile-grid-1 {
+    @apply grid-cols-1;
+  }
+  
+  .mobile-grid-2 {
+    @apply grid-cols-2;
+  }
+  
+  .mobile-p-4 {
+    @apply p-4;
+  }
+  
+  .mobile-p-2 {
+    @apply p-2;
+  }
+  
+  .mobile-mb-4 {
+    @apply mb-4;
+  }
+  
+  .mobile-mb-2 {
+    @apply mb-2;
+  }
+  
+  .mobile-space-y-2 {
+    @apply space-y-2;
+  }
+  
+  .mobile-space-y-1 {
+    @apply space-y-1;
+  }
+  
+  .mobile-gap-2 {
+    @apply gap-2;
+  }
+  
+  .mobile-gap-1 {
+    @apply gap-1;
+  }
+  
+  .mobile-h-12 {
+    @apply h-12;
+  }
+  
+  .mobile-h-8 {
+    @apply h-8;
+  }
+  
+  .mobile-w-8 {
+    @apply w-8;
+  }
+  
+  .mobile-w-6 {
+    @apply w-6;
+  }
+  
+  .mobile-text-lg {
+    @apply text-lg;
+  }
+  
+  .mobile-text-base {
+    @apply text-base;
+  }
+  
+  .mobile-text-sm {
+    @apply text-sm;
+  }
+  
+  .mobile-text-xs {
+    @apply text-xs;
+  }
+  
+  .mobile-rounded-lg {
+    @apply rounded-lg;
+  }
+  
+  .mobile-rounded-md {
+    @apply rounded-md;
+  }
+  
+  .mobile-px-3 {
+    @apply px-3;
+  }
+  
+  .mobile-py-2 {
+    @apply py-2;
+  }
+  
+  .mobile-px-2 {
+    @apply px-2;
+  }
+  
+  .mobile-py-1 {
+    @apply py-1;
+  }
+}
+
+/* Tablet Responsive Düzenlemeler */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tablet-container {
+    @apply px-6;
+  }
+  
+  .tablet-grid-2 {
+    @apply grid-cols-2;
+  }
+  
+  .tablet-grid-3 {
+    @apply grid-cols-3;
+  }
+}
+
+/* Reklam Alanları - Mobilde Gizle */
+@media (max-width: 1280px) {
+  .ad-placeholder-left,
+  .ad-placeholder-right {
+    @apply hidden;
+  }
+}
+
+/* Navbar Mobil Düzenlemeler */
+@media (max-width: 1024px) {
+  .navbar-mobile {
+    @apply px-4;
+  }
+  
+  .navbar-mobile-menu {
+    @apply max-h-96 overflow-y-auto;
+  }
+  
+  .navbar-mobile-item {
+    @apply py-3 px-4 text-base;
+  }
+}
+
+/* Kartlar Mobil Düzenlemeler */
+@media (max-width: 768px) {
+  .card-mobile {
+    @apply p-4 rounded-xl;
+  }
+  
+  .card-mobile-title {
+    @apply text-lg font-bold;
+  }
+  
+  .card-mobile-content {
+    @apply text-sm;
+  }
+  
+  .card-mobile-button {
+    @apply px-4 py-2 text-sm rounded-lg;
+  }
+}
+
+/* Oyun Alanı Mobil Düzenlemeler */
+@media (max-width: 768px) {
+  .game-mobile {
+    @apply w-full max-w-sm mx-auto;
+  }
+  
+  .game-mobile-controls {
+    @apply grid-cols-3 gap-2;
+  }
+  
+  .game-mobile-button {
+    @apply w-12 h-12 text-lg rounded-lg;
+  }
+}
+
+/* Mağaza Mobil Düzenlemeler */
+@media (max-width: 768px) {
+  .store-mobile-grid {
+    @apply grid-cols-2 gap-3;
+  }
+  
+  .store-mobile-item {
+    @apply p-3 rounded-lg;
+  }
+  
+  .store-mobile-image {
+    @apply h-32;
+  }
+  
+  .store-mobile-title {
+    @apply text-sm font-medium;
+  }
+  
+  .store-mobile-price {
+    @apply text-xs;
+  }
+}
+
+/* Dashboard Mobil Düzenlemeler */
+@media (max-width: 768px) {
+  .dashboard-mobile-stats {
+    @apply grid-cols-1 gap-4;
+  }
+  
+  .dashboard-mobile-card {
+    @apply p-4 rounded-xl;
+  }
+  
+  .dashboard-mobile-title {
+    @apply text-lg font-bold;
+  }
+  
+  .dashboard-mobile-value {
+    @apply text-2xl font-bold;
+  }
+}
+
+/* Liderlik Tablosu Mobil Düzenlemeler */
+@media (max-width: 768px) {
+  .leaderboard-mobile {
+    @apply space-y-2;
+  }
+  
+  .leaderboard-mobile-item {
+    @apply p-3 rounded-lg;
+  }
+  
+  .leaderboard-mobile-rank {
+    @apply text-sm font-bold;
+  }
+  
+  .leaderboard-mobile-username {
+    @apply text-sm font-medium;
+  }
+  
+  .leaderboard-mobile-score {
+    @apply text-xs;
+  }
+}
+
 /* Tema Seçenekleri */
 .theme-purple {
   @apply bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900;
@@ -293,4 +541,55 @@
 
 .animate-success-pulse {
   animation: successPulse 0.6s ease-out;
+}
+
+/* Reklam Stilleri */
+.ad-banner {
+  @apply relative overflow-hidden;
+}
+
+.ad-banner ins {
+  @apply block;
+}
+
+/* Reklam Placeholder Stilleri */
+.ad-placeholder-left,
+.ad-placeholder-right {
+  @apply w-32 h-96 bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-600/50 shadow-lg;
+  @apply flex items-center justify-center;
+  @apply transition-all duration-300 hover:scale-105;
+}
+
+.ad-content {
+  @apply text-center p-4;
+}
+
+.ad-icon {
+  @apply text-4xl mb-2;
+}
+
+.ad-title {
+  @apply text-white font-bold text-sm mb-1;
+}
+
+.ad-size {
+  @apply text-gray-400 text-xs mb-2;
+}
+
+.ad-note {
+  @apply text-gray-500 text-xs;
+}
+
+/* Mobil Reklam Stilleri */
+@media (max-width: 1280px) {
+  .ad-placeholder-left,
+  .ad-placeholder-right {
+    @apply hidden;
+  }
+}
+
+/* Reklam Yükleme Animasyonu */
+.ad-loading {
+  @apply animate-pulse bg-gray-700/50 rounded-lg;
+  min-height: 90px;
 } 

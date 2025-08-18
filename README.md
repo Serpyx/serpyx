@@ -1,249 +1,157 @@
-# 🐍 Serpyx - Oyna, Kazan, Geleceği İnşa Et
+# 🐍 Serpyx - Snake Game Platform
 
-Serpyx, modern web teknolojileri ile geliştirilmiş, kripto para entegrasyonlu yılan oyunudur. Oyuncular coin kazanabilir, başarımlar elde edebilir ve gelecekte bu coinleri gerçek kripto para birimine dönüştürebilir.
+Serpyx, modern web teknolojileri ile geliştirilmiş bir yılan oyunu platformudur. Kullanıcılar oyun oynayabilir, NFT toplayabilir, sıralamalarda yarışabilir ve arkadaşlarıyla etkileşime geçebilir.
 
-## 🚀 Q2 2025 Altyapı Planı
+## 🚀 Özellikler
 
-### 📅 Zaman Çizelgesi
-- **Başlangıç**: Nisan 2025
-- **Bitiş**: Haziran 2025
-- **Toplam Süre**: 3 Ay
+### 🎮 Oyun Özellikleri
+- **Klasik Yılan Oyunu**: Geleneksel yılan oyunu deneyimi
+- **Çoklu Renk Seçenekleri**: Yılanınızı özelleştirin
+- **NFT Karakterler**: Özel yılan karakterleri toplayın
+- **Puan Sistemi**: Yüksek skorlar elde edin
+- **Günlük Görevler**: Her gün yeni görevler tamamlayın
 
-### 🎯 Ana Hedefler
-- ✅ **Backend Altyapısı**: Node.js/Express API
-- ✅ **Veritabanı**: PostgreSQL + Redis
-- ✅ **Blockchain**: Ethereum testnet entegrasyonu
-- ✅ **Güvenlik**: JWT, Rate limiting, Helmet
-- ✅ **Dokümantasyon**: Swagger/OpenAPI
+### 💎 Ekonomi Sistemi
+- **Coin Sistemi**: Oyun içi para birimi
+- **SPX Token**: Premium para birimi
+- **NFT Marketplace**: Özel karakterler satın alın
+- **Dönüştürme Sistemi**: Coin'leri SPX'e çevirin
 
-### 🛠️ Teknoloji Stack
-- **Frontend**: React 18, Vite, Tailwind CSS
-- **Backend**: Node.js 18+, Express.js
-- **Database**: PostgreSQL 15+, Redis 7+
-- **Blockchain**: Ethereum, Web3.js, MetaMask
-- **DevOps**: Docker, GitHub Actions, AWS/Vercel
+### 🏆 Sosyal Özellikler
+- **Liderlik Tablosu**: En iyi oyuncuları görün
+- **Profil Sistemi**: Kişisel istatistiklerinizi takip edin
+- **Başarım Sistemi**: Rozetler kazanın
+- **Günlük Bonus**: Her gün giriş yaparak bonus alın
 
-## ✨ Özellikler
+## 🛠️ Teknolojiler
 
-- 🎮 **Modern Yılan Oyunu**: Canvas API ile geliştirilmiş akıcı oyun deneyimi
-- 🪙 **Coin Sistemi**: Oyun sırasında coin kazanın
-- 🏆 **Başarım Sistemi**: Çeşitli hedefler ve ödüller
-- 📅 **Günlük Görevler**: Her gün yeni görevler ve bonuslar
-- 🎁 **Günlük Bonus**: Düzenli giriş yaparak bonus coin kazanın
-- 🎨 **Özelleştirme**: Farklı yılan renkleri ve karakterler
-- 📊 **İstatistikler**: Detaylı oyun istatistikleri
-- 🏪 **Mağaza**: Coin ile renk satın alın
-- 📈 **Lider Tablosu**: En iyi oyuncuları görün
-- 🎵 **Müzik Kontrolü**: Oyun müziği ve ses efektleri
-- 🔗 **Blockchain Entegrasyonu**: SPX token sistemi (Q2 2025)
+### Frontend
+- **React 18**: Modern UI framework
+- **Vite**: Hızlı build tool
+- **Tailwind CSS**: Utility-first CSS framework
+- **Framer Motion**: Animasyonlar
+- **Zustand**: State management
+
+### Backend
+- **Node.js**: Server runtime
+- **Express.js**: Web framework
+- **SQLite**: Veritabanı
+- **bcryptjs**: Şifre hashleme
+- **UUID**: Benzersiz ID'ler
 
 ## 📦 Kurulum
 
 ### Gereksinimler
 - Node.js 18+ 
-- npm 8+
-- PostgreSQL 15+
-- Redis 7+
-- Docker (opsiyonel)
+- npm veya yarn
 
-### Adımlar
-
-1. **Repository'yi klonlayın**
+### Adım 1: Projeyi Klonlayın
 ```bash
-git clone https://github.com/serpyx/serpyx-game.git
-cd serpyx-game
+git clone https://github.com/yourusername/serpyx.git
+cd serpyx
 ```
 
-2. **Frontend bağımlılıklarını yükleyin**
+### Adım 2: Bağımlılıkları Yükleyin
 ```bash
-cd client
-npm install
-```
-
-3. **Backend bağımlılıklarını yükleyin**
-```bash
-cd ../server
-npm install
-```
-
-4. **Environment variables'ı ayarlayın**
-```bash
-cp env.example .env
-# .env dosyasını düzenleyin
-```
-
-5. **Veritabanını başlatın**
-```bash
-# Docker ile (önerilen)
-docker-compose up -d postgres redis
-
-# Veya manuel olarak
-# PostgreSQL ve Redis'i başlatın
-```
-
-6. **Backend'i başlatın**
-```bash
+# Server bağımlılıkları
 cd server
-npm run dev
+npm install
+
+# Client bağımlılıkları
+cd ../client
+npm install
 ```
 
-7. **Frontend'i başlatın**
+### Adım 3: Ortam Değişkenlerini Ayarlayın
 ```bash
+# Server klasöründe .env dosyası oluşturun
+cd server
+cp env.example .env
+```
+
+`.env` dosyasını düzenleyin:
+```env
+PORT=5000
+NODE_ENV=development
+```
+
+### Adım 4: Uygulamayı Başlatın
+```bash
+# Geliştirme modunda başlatmak için
+npm run dev
+
+# Veya ayrı ayrı başlatmak için:
+# Terminal 1 - Server
+cd server
+npm start
+
+# Terminal 2 - Client
 cd client
 npm run dev
 ```
 
-8. **Tarayıcıda açın**
-```
-http://localhost:3000
-```
+## 🌐 Kullanım
 
-## 🛠️ Geliştirme
+### Kayıt Olma
+1. Ana sayfada "Kayıt Ol" butonuna tıklayın
+2. Kullanıcı adı, e-posta ve şifre girin
+3. E-posta doğrulama linkini kontrol edin (console'da görünür)
+4. Giriş yapın
 
-### Mevcut Scriptler
+### Oyun Oynama
+1. "Oyna" sayfasına gidin
+2. Oyun kontrollerini kullanın:
+   - **WASD** veya **Ok tuşları**: Yılanı yönlendirin
+   - **Space**: Oyunu duraklatın/devam ettirin
+3. Yemi yiyerek büyüyün ve puan kazanın
 
-```bash
-# Frontend
-npm run dev          # Geliştirme sunucusu
-npm run build        # Production build
-npm run preview      # Build önizleme
-npm run lint         # Linting
-npm run lint:fix     # Linting düzeltme
+### NFT Toplama
+1. "Mağaza" sayfasına gidin
+2. NFT sekmesini seçin
+3. SPX ile özel karakterler satın alın
+4. Profilinizde karakterinizi seçin
 
-# Backend
-npm run dev          # Geliştirme sunucusu
-npm run test         # Testleri çalıştır
-npm run migrate      # Veritabanı migration
-npm run seed         # Veritabanı seed
-```
+### Sıralamada Yer Alın
+1. Yüksek skorlar elde edin
+2. "Sıralama" sayfasında konumunuzu görün
+3. Diğer oyuncularla yarışın
 
-### Docker ile Geliştirme
+## 📱 Mobil Uyumluluk
 
-```bash
-# Tüm servisleri başlat
-docker-compose up -d
+Serpyx tamamen mobil uyumludur:
+- **Responsive Tasarım**: Tüm ekran boyutlarında çalışır
+- **Touch Kontrolleri**: Mobil cihazlarda dokunmatik kontroller
+- **Optimize Edilmiş UI**: Mobil cihazlar için özel düzenlemeler
 
-# Sadece backend'i başlat
-docker-compose up backend
-
-# Logları görüntüle
-docker-compose logs -f backend
-
-# Servisleri durdur
-docker-compose down
-```
+## 🔧 Geliştirme
 
 ### Proje Yapısı
-
 ```
 serpyx/
-├── client/                 # Frontend (React)
+├── client/                 # Frontend React uygulaması
 │   ├── src/
 │   │   ├── components/     # React bileşenleri
-│   │   ├── hooks/         # Custom React hooks
 │   │   ├── pages/         # Sayfa bileşenleri
-│   │   ├── assets/        # Statik dosyalar
+│   │   ├── hooks/         # Custom React hooks
+│   │   ├── contexts/      # React contexts
 │   │   └── utils/         # Yardımcı fonksiyonlar
-│   └── public/            # Public dosyalar
-├── server/                 # Backend (Node.js)
-│   ├── src/
-│   │   ├── routes/        # API routes
-│   │   ├── middleware/    # Express middleware
-│   │   ├── database/      # Veritabanı işlemleri
-│   │   ├── utils/         # Yardımcı fonksiyonlar
-│   │   └── blockchain/    # Blockchain entegrasyonu
-│   └── logs/              # Log dosyaları
-└── docs/                  # Dokümantasyon
+│   └── public/            # Statik dosyalar
+├── server/                # Backend Node.js uygulaması
+│   ├── controllers/       # API controllers
+│   ├── middleware/        # Express middleware
+│   ├── models/           # Veritabanı modelleri
+│   └── routes/           # API routes
+└── README.md
 ```
 
-## 🎮 Oyun Özellikleri
+### API Endpoints
+- `POST /api/register` - Kullanıcı kaydı
+- `POST /api/login` - Kullanıcı girişi
+- `GET /api/leaderboard` - Liderlik tablosu
+- `POST /api/update-stats` - İstatistik güncelleme
+- `GET /api/profile/:userId` - Kullanıcı profili
 
-### Oyun Modları
-- **Serbest Oyun**: Engelsiz klasik yılan oyunu
-- **Kampanya**: Seviye bazlı zorluk artışı (Q2 2025)
-
-### Kontroller
-- **WASD** veya **Ok Tuşları**: Yılan yönlendirme
-- **Space**: Oyunu duraklat/devam et
-- **ESC**: Ana menüye dön
-
-### Coin Kazanma
-- Normal yem yeme: +1 coin
-- Bonus yem: +5-10 coin
-- Başarımlar: 25-2000 coin
-- Günlük görevler: 50-200 coin
-- Günlük bonus: 10-100 coin
-- Blockchain rewards: SPX token (Q2 2025)
-
-## 🏆 Başarımlar
-
-- **İlk Coin**: İlk coinini topla
-- **Coin Toplayıcı**: 100 coin topla
-- **Coin Ustası**: 1000 coin topla
-- **İlk Oyun**: İlk oyununu oyna
-- **Düzenli Oyuncu**: 10 oyun oyna
-- **Veteran Oyuncu**: 100 oyun oyna
-- **Skor Avcısı**: 50 skor yap
-- **Skor Ustası**: 100 skor yap
-- **Düzenli Oyuncu**: 3 gün üst üste oyna
-- **Haftalık Oyuncu**: 7 gün üst üste oyna
-- **Aylık Oyuncu**: 30 gün üst üste oyna
-- **Renk Meraklısı**: İlk rengini satın al
-- **Renk Koleksiyoncusu**: 10 renk satın al
-- **Hayatta Kalan**: 5 dakika hayatta kal
-- **Dayanıklı**: 10 dakika hayatta kal
-
-## 🎨 Özelleştirme
-
-### Yılan Renkleri
-- Yeşil (Varsayılan)
-- Mavi
-- Kırmızı
-- Mor
-- Turuncu
-- Pembe
-- Altın
-- Gümüş
-
-### Karakterler
-- Klasik Yılan
-- NFT Yılan (Q2 2025)
-
-## 📊 İstatistikler
-
-Oyun aşağıdaki istatistikleri takip eder:
-- Toplam coin
-- Oynanan oyun sayısı
-- En yüksek skor
-- Günlük streak
-- Açılan renk sayısı
-- Hayatta kalma süresi
-- Blockchain işlemleri (Q2 2025)
-
-## 🔧 Yapılandırma
-
-### Environment Variables
-```env
-# Frontend
-VITE_API_URL=http://localhost:5000
-VITE_APP_NAME=Serpyx
-
-# Backend
-NODE_ENV=development
-PORT=5000
-DB_HOST=localhost
-DB_NAME=serpyx
-JWT_SECRET=your-secret-key
-```
-
-### Build Optimizasyonları
-- Code splitting
-- Tree shaking
-- Minification
-- Gzip compression
-- Image optimization
-
-## 🚀 Deployment
+## 🚀 Production Deployment
 
 ### Vercel (Frontend)
 ```bash
@@ -252,91 +160,69 @@ npm run build
 vercel --prod
 ```
 
-### AWS (Backend)
+### Railway/Heroku (Backend)
 ```bash
 cd server
-docker build -t serpyx-backend .
-docker push your-registry/serpyx-backend
+git add .
+git commit -m "Production ready"
+git push heroku main
 ```
 
-### Docker Compose (Production)
-```bash
-docker-compose -f docker-compose.prod.yml up -d
-```
+## 🔒 Güvenlik
 
-## 🧪 Testing
+- **Şifre Hashleme**: bcryptjs ile güvenli şifre saklama
+- **CORS Koruması**: Cross-origin istekleri kontrol edilir
+- **Input Validasyonu**: Tüm kullanıcı girdileri doğrulanır
+- **SQL Injection Koruması**: Prepared statements kullanılır
 
-### Frontend Tests
-```bash
-cd client
-npm run test
-```
+## 🐛 Hata Ayıklama
 
-### Backend Tests
-```bash
-cd server
-npm run test
-```
+### Yaygın Sorunlar
 
-### Integration Tests
-```bash
-npm run test:integration
-```
+1. **E-posta Doğrulama Çalışmıyor**
+   - Console'da doğrulama linkini kontrol edin
+   - Mock e-posta servisi kullanılıyor
 
-## 📈 Performans
+2. **Mobil Görünüm Bozuk**
+   - Tarayıcıyı yenileyin
+   - Responsive tasarım güncellemeleri yapıldı
 
-### Frontend
-- **Lighthouse Score**: 95+
-- **Bundle Size**: < 500KB
-- **Load Time**: < 2s
+3. **Sıralama Güncellenmiyor**
+   - Gerçek veritabanı bağlantısı kuruldu
+   - API endpoint'leri eklendi
 
-### Backend
-- **Response Time**: < 200ms
-- **Throughput**: 1000+ req/s
-- **Uptime**: 99.9%
+## 📈 Gelecek Özellikler
 
-## 🔐 Güvenlik
-
-### Frontend
-- Content Security Policy
-- XSS Protection
-- CSRF Protection
-
-### Backend
-- JWT Authentication
-- Rate Limiting
-- Input Validation
-- SQL Injection Protection
-- Helmet.js Security Headers
+- [ ] **Blockchain Entegrasyonu**: Gerçek NFT sistemi
+- [ ] **Çok Oyunculu Mod**: Arkadaşlarla oynama
+- [ ] **Turnuva Sistemi**: Haftalık/aylık turnuvalar
+- [ ] **Sosyal Özellikler**: Arkadaş ekleme, mesajlaşma
+- [ ] **Mobil Uygulama**: iOS/Android uygulamaları
 
 ## 🤝 Katkıda Bulunma
 
 1. Fork yapın
 2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Commit yapın (`git commit -m 'Add amazing feature'`)
-4. Push yapın (`git push origin feature/amazing-feature`)
-5. Pull Request açın
+3. Değişikliklerinizi commit edin (`git commit -m 'Add amazing feature'`)
+4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+5. Pull Request oluşturun
 
-## 📝 Lisans
+## 📄 Lisans
 
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakın.
 
 ## 📞 İletişim
 
-- **Website**: [serpyx.com](https://serpyx.com)
-- **Email**: info@serpyx.com
+- **E-posta**: info@serpyx.com
+- **Website**: https://serpyx.com
 - **Discord**: [Serpyx Community](https://discord.gg/serpyx)
 
 ## 🙏 Teşekkürler
 
-- React ekibine
-- Vite ekibine
-- Tailwind CSS ekibine
-- Framer Motion ekibine
-- Tüm katkıda bulunanlara
+- React ve Vite ekibine
+- Tailwind CSS geliştiricilerine
+- Tüm açık kaynak topluluğuna
 
 ---
 
-**Serpyx** - Oyna, Kazan, Geleceği İnşa Et 🚀
-
-*Q2 2025 Blockchain Infrastructure Coming Soon!* 
+**Serpyx** - Modern yılan oyunu deneyimi 🐍✨ 

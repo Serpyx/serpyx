@@ -338,40 +338,6 @@ const Store = () => {
     setTimeout(() => setMessage(''), 3000);
   }
 
-
-
-  // Test amaçlı NFT satın alma
-  const handleTestPurchase = () => {
-    console.log('Store - Test NFT purchase started');
-    const result = purchaseNFT('citrus_curl', 'common', 100);
-    console.log('Store - Test NFT purchase result:', result);
-    if (result.success) {
-      setMessage(`🎉 Test NFT satın alındı: ${result.message}`);
-      playButtonClick();
-    } else {
-      setMessage(`❌ ${result.message}`);
-    }
-    setTimeout(() => setMessage(''), 3000);
-  }
-
-  // Debug fonksiyonu
-  const handleDebug = () => {
-    const owned = ownedNFTs;
-    console.log('Debug - Owned NFTs:', owned);
-    console.log('Debug - User:', user);
-    console.log('Debug - SPX Balance:', spxBalance);
-    
-    // localStorage'dan da kontrol et
-    if (user?.username) {
-      const userKey = `serpyx-user-${user.username}`;
-      const userData = localStorage.getItem(userKey);
-      console.log('Debug - localStorage user data:', userData ? JSON.parse(userData) : 'Not found');
-    }
-    
-    setMessage(`🔍 Debug: Sahip olunan NFT: ${owned.length} adet`);
-    setTimeout(() => setMessage(''), 5000);
-  }
-
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       {/* Reklam Alanları - Sol ve Sağ */}
@@ -405,21 +371,21 @@ const Store = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
-          className="text-center mb-8"
+          className="text-center mb-6 md:mb-8"
         >
-          <img src="/serpyx-logo.png" alt="Serpyx Logo" className="h-16 mx-auto mb-6" />
-          <h1 className="text-4xl font-bold text-white mb-4">🛍️ {t('storeTitle')}</h1>
-          <p className="text-xl text-gray-400">{t('storeDescription')}</p>
+          <img src="/serpyx-logo.png" alt="Serpyx Logo" className="h-12 md:h-16 mx-auto mb-4 md:mb-6" />
+          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 md:mb-4">🛍️ {t('storeTitle')}</h1>
+          <p className="text-base md:text-xl text-gray-400 px-4">{t('storeDescription')}</p>
         </motion.div>
 
         {message && (
           <motion.div 
             initial={{ opacity: 0, y: -10 }} 
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 text-center"
+            className="mb-4 md:mb-6 text-center"
           >
-            <div className="inline-block bg-green-500/20 border border-green-500/30 rounded-xl px-6 py-3">
-              <span className="text-green-400 font-semibold">{message}</span>
+            <div className="inline-block bg-green-500/20 border border-green-500/30 rounded-lg md:rounded-xl px-4 md:px-6 py-2 md:py-3">
+              <span className="text-green-400 font-semibold text-sm md:text-base">{message}</span>
             </div>
           </motion.div>
         )}
@@ -428,71 +394,68 @@ const Store = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }} 
           animate={{ opacity: 1, scale: 1 }}
-          className="mb-8"
+          className="mb-6 md:mb-8"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 max-w-2xl mx-auto">
             {/* Coin Bakiyesi */}
-            <div className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-2xl p-6 border border-yellow-500/30">
-            <div className="flex items-center justify-center space-x-3">
-              <img src="/coin.PNG" alt="Coin" className="w-8 h-8 rounded-full" />
+            <div className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-lg md:rounded-2xl p-4 md:p-6 border border-yellow-500/30">
+            <div className="flex items-center justify-center space-x-2 md:space-x-3">
+              <img src="/coin.PNG" alt="Coin" className="w-6 h-6 md:w-8 md:h-8 rounded-full" />
               <div>
-                <h3 className="text-white font-bold text-lg">{t('coinBalance')}</h3>
-                <p className="text-yellow-400 font-bold text-2xl">{coins}</p>
+                <h3 className="text-white font-bold text-sm md:text-lg">{t('coinBalance')}</h3>
+                <p className="text-yellow-400 font-bold text-lg md:text-2xl">{coins}</p>
               </div>
             </div>
           </div>
             
             {/* SPX Bakiyesi */}
-            <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-2xl p-6 border border-blue-500/30">
-              <div className="flex items-center justify-center space-x-3">
-                <img src="/spx.png" alt="SPX" className="w-8 h-8 rounded-full" />
+            <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-lg md:rounded-2xl p-4 md:p-6 border border-blue-500/30">
+              <div className="flex items-center justify-center space-x-2 md:space-x-3">
+                <img src="/spx.png" alt="SPX" className="w-6 h-6 md:w-8 md:h-8 rounded-full" />
                 <div>
-                  <h3 className="text-white font-bold text-lg">{t('spxBalance')}</h3>
-                  <p className="text-blue-400 font-bold text-2xl">{spxBalance}</p>
+                  <h3 className="text-white font-bold text-sm md:text-lg">{t('spxBalance')}</h3>
+                  <p className="text-blue-400 font-bold text-lg md:text-2xl">{spxBalance}</p>
                 </div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Test Butonu */}
+        {/* Premium Ürünler Bilgisi */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6 text-center space-x-4"
+          className="mb-4 md:mb-6 text-center"
         >
-          <button
-            onClick={handleTestPurchase}
-            onMouseEnter={playHoverSound}
-            className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg"
-          >
-            🧪 {t('testNFTPurchase')} (Citrus Curl)
-          </button>
-          <button
-            onClick={handleDebug}
-            onMouseEnter={playHoverSound}
-            className="px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-lg"
-          >
-            🔍 {t('debugNFTCount')}
-          </button>
+          <div className="bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-lg md:rounded-2xl p-4 md:p-6 border border-blue-500/30 max-w-md mx-auto">
+            <div className="flex items-center justify-center space-x-2 md:space-x-3 mb-3 md:mb-4">
+              <span className="text-xl md:text-2xl">💎</span>
+              <h3 className="text-lg md:text-xl font-bold text-white">Premium Ürünler</h3>
+            </div>
+            <p className="text-gray-300 text-xs md:text-sm mb-3 md:mb-4">
+              Özel NFT'ler ve premium renkler için SPX kullanın!
+            </p>
+            <div className="flex items-center justify-center space-x-2">
+              <img src="/spx.png" alt="SPX" className="w-4 h-4 md:w-5 md:h-5 rounded-full" />
+              <span className="text-blue-400 font-bold text-xs md:text-sm">SPX ile Satın Al</span>
+            </div>
+          </div>
         </motion.div>
-
-
 
         {/* Tab Menüsü */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-6 md:mb-8"
         >
-          <div className="flex justify-center space-x-4">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
             <button
               onClick={() => {
                 setActiveTab('colors')
                 playButtonClick()
               }}
               onMouseEnter={playHoverSound}
-              className={`px-8 py-4 rounded-xl font-bold transition-all duration-300 ${
+              className={`px-4 md:px-8 py-3 md:py-4 rounded-lg md:rounded-xl font-bold transition-all duration-300 text-sm md:text-base ${
                 activeTab === 'colors' 
                   ? 'bg-gradient-to-r from-snake-500 to-snake-600 text-white shadow-lg' 
                   : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
@@ -506,7 +469,7 @@ const Store = () => {
                 playButtonClick()
               }}
               onMouseEnter={playHoverSound}
-              className={`px-8 py-4 rounded-xl font-bold transition-all duration-300 ${
+              className={`px-4 md:px-8 py-3 md:py-4 rounded-lg md:rounded-xl font-bold transition-all duration-300 text-sm md:text-base ${
                 activeTab === 'themes' 
                   ? 'bg-gradient-to-r from-gray-500 to-gray-600 text-white shadow-lg' 
                   : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
@@ -520,7 +483,7 @@ const Store = () => {
                 playButtonClick()
               }}
               onMouseEnter={playHoverSound}
-              className={`px-8 py-4 rounded-xl font-bold transition-all duration-300 ${
+              className={`px-4 md:px-8 py-3 md:py-4 rounded-lg md:rounded-xl font-bold transition-all duration-300 text-sm md:text-base ${
                 activeTab === 'nfts' 
                   ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg' 
                   : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
@@ -528,7 +491,6 @@ const Store = () => {
             >
               🖼️ {t('nfts')}
             </button>
-
           </div>
         </motion.div>
 
@@ -536,19 +498,19 @@ const Store = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
+            className="space-y-6 md:space-y-8"
           >
             {COLOR_CATEGORIES.map(category => (
-              <div key={category.key} className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-white">{category.name}</h2>
-                  <div className="flex items-center space-x-3">
-                    <img src="/coin.PNG" alt="Coin" className="w-6 h-6 rounded-full" />
-                    <span className="text-yellow-400 font-bold text-lg">{category.price}</span>
+              <div key={category.key} className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-lg md:rounded-2xl p-4 md:p-6 border border-gray-700">
+                <div className="flex items-center justify-between mb-4 md:mb-6">
+                  <h2 className="text-lg md:text-2xl font-bold text-white">{category.name}</h2>
+                  <div className="flex items-center space-x-2 md:space-x-3">
+                    <img src="/coin.PNG" alt="Coin" className="w-4 h-4 md:w-6 md:h-6 rounded-full" />
+                    <span className="text-yellow-400 font-bold text-sm md:text-lg">{category.price}</span>
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mb-4 md:mb-6">
                   {category.colors.map(color => {
                     const isUnlocked = (unlocked[category.key] || []).includes(color.id)
                     // Gradient renkler için özel karşılaştırma
@@ -559,7 +521,7 @@ const Store = () => {
                     return (
                       <motion.div
                         key={color.id}
-                        className={`relative rounded-xl p-4 border-2 transition-all duration-300 cursor-pointer ${
+                        className={`relative rounded-lg md:rounded-xl p-3 md:p-4 border-2 transition-all duration-300 cursor-pointer ${
                           isSelected 
                             ? 'border-snake-400 bg-snake-500/20' 
                             : isUnlocked 
@@ -576,18 +538,18 @@ const Store = () => {
                         onMouseEnter={isUnlocked ? playHoverSound : undefined}
                       >
                         <div 
-                          className="w-full h-16 rounded-lg mb-3"
+                          className="w-full h-12 md:h-16 rounded-lg mb-2 md:mb-3"
                           style={{ 
                             background: color.color,
                             border: color.border ? `2px solid ${color.border}` : 'none'
                           }}
                         />
-                        <p className="text-white text-sm font-medium text-center">{color.name}</p>
+                        <p className="text-white text-xs md:text-sm font-medium text-center">{color.name}</p>
                         {isSelected && (
-                          <div className="absolute top-2 right-2 text-snake-400 text-xl">✓</div>
+                          <div className="absolute top-1 md:top-2 right-1 md:right-2 text-snake-400 text-lg md:text-xl">✓</div>
                         )}
                         {!isUnlocked && (
-                          <div className="absolute top-2 right-2 text-gray-400 text-xl">🔒</div>
+                          <div className="absolute top-1 md:top-2 right-1 md:right-2 text-gray-400 text-lg md:text-xl">🔒</div>
                         )}
                       </motion.div>
                     )
@@ -600,7 +562,7 @@ const Store = () => {
                     playButtonClick()
                   }}
                   onMouseEnter={playHoverSound}
-                  className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-4 rounded-xl font-bold hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300"
+                  className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 md:py-4 rounded-lg md:rounded-xl font-bold hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 text-sm md:text-base"
                 >
                   🎲 {t('randomColorUnlock')} ({category.price} {t('coins')})
                 </button>
@@ -613,18 +575,18 @@ const Store = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
+            className="space-y-6 md:space-y-8"
           >
             {THEME_CATEGORIES.map(category => (
-              <div key={category.key} className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-gray-400">{category.name} ({t('locked')})</h2>
-                  <div className="flex items-center space-x-3">
-                    <span className="text-gray-400 font-bold text-lg">🔒</span>
+              <div key={category.key} className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-lg md:rounded-2xl p-4 md:p-6 border border-gray-700">
+                <div className="flex items-center justify-between mb-4 md:mb-6">
+                  <h2 className="text-lg md:text-2xl font-bold text-gray-400">{category.name} ({t('locked')})</h2>
+                  <div className="flex items-center space-x-2 md:space-x-3">
+                    <span className="text-gray-400 font-bold text-sm md:text-lg">🔒</span>
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mb-4 md:mb-6">
                   {category.themes.map(theme => {
                     const isUnlocked = false // Tema sistemi kilitli
                     const isSelected = false // Tema sistemi kilitli
@@ -632,7 +594,7 @@ const Store = () => {
                     return (
                       <motion.div
                         key={theme.id}
-                        className="relative rounded-xl p-4 border-2 transition-all duration-300 cursor-not-allowed border-gray-600 bg-gray-800/50 opacity-60 pointer-events-none"
+                        className="relative rounded-lg md:rounded-xl p-3 md:p-4 border-2 transition-all duration-300 cursor-not-allowed border-gray-600 bg-gray-800/50 opacity-60 pointer-events-none"
                         whileHover={{ scale: 1 }}
                         onClick={(e) => {
                           e.preventDefault()
@@ -645,15 +607,15 @@ const Store = () => {
                         onTouchStart={(e) => e.preventDefault()}
                       >
                         <div 
-                          className="w-full h-16 rounded-lg mb-3"
+                          className="w-full h-12 md:h-16 rounded-lg mb-2 md:mb-3"
                           style={{ 
                             background: theme.background,
                             border: theme.background.includes('gradient') ? 'none' : 'none'
                           }}
                         />
-                        <p className="text-white text-sm font-medium text-center">{theme.name}</p>
-                        <div className="absolute top-2 right-2 text-gray-400 text-xl">🔒</div>
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-xl">
+                        <p className="text-white text-xs md:text-sm font-medium text-center">{theme.name}</p>
+                        <div className="absolute top-1 md:top-2 right-1 md:right-2 text-gray-400 text-lg md:text-xl">🔒</div>
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg md:rounded-xl">
                           <div className="text-center">
                             <div className="text-gray-400 text-xs font-medium">{t('locked').toUpperCase()}</div>
                           </div>
@@ -673,7 +635,7 @@ const Store = () => {
                   onMouseEnter={undefined}
                   onMouseDown={(e) => e.preventDefault()}
                   onTouchStart={(e) => e.preventDefault()}
-                  className="w-full bg-gradient-to-r from-gray-600 to-gray-800 text-gray-300 py-4 rounded-xl font-bold cursor-not-allowed opacity-70 border border-gray-500 pointer-events-none"
+                  className="w-full bg-gradient-to-r from-gray-600 to-gray-800 text-gray-300 py-3 md:py-4 rounded-lg md:rounded-xl font-bold cursor-not-allowed opacity-70 border border-gray-500 pointer-events-none text-sm md:text-base"
                   disabled
                 >
                   🔒 {t('themeSystemLocked')}
@@ -687,22 +649,22 @@ const Store = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
+            className="space-y-6 md:space-y-8"
           >
             {NFT_CATEGORIES.map(category => (
-              <div key={category.key} className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
-                <div className="flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-600">
+              <div key={category.key} className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-lg md:rounded-2xl p-4 md:p-6 border border-gray-700">
+                <div className="flex items-center justify-between mb-4 md:mb-6 p-3 md:p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-lg md:rounded-xl border border-gray-600">
                   <div>
-                    <h2 className="text-2xl font-bold text-white mb-1">{category.name}</h2>
-                    <p className="text-gray-400">{t('specialSnakeCharacters')}</p>
+                    <h2 className="text-lg md:text-2xl font-bold text-white mb-1">{category.name}</h2>
+                    <p className="text-gray-400 text-xs md:text-sm">{t('specialSnakeCharacters')}</p>
                   </div>
-                  <div className="flex items-center space-x-3 bg-gray-700/50 px-4 py-2 rounded-lg border border-gray-500">
-                    <img src="/spx.png" alt="SPX" className="w-6 h-6 rounded-full" />
-                    <span className="text-blue-400 font-bold text-lg">{category.price} SPX</span>
+                  <div className="flex items-center space-x-2 md:space-x-3 bg-gray-700/50 px-3 md:px-4 py-2 rounded-lg border border-gray-500">
+                    <img src="/spx.png" alt="SPX" className="w-4 h-4 md:w-6 md:h-6 rounded-full" />
+                    <span className="text-blue-400 font-bold text-sm md:text-lg">{category.price} SPX</span>
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 mb-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6 mb-4 md:mb-6">
                   {category.nfts.map(nft => {
                     const isOwned = ownsNFT(nft.id);
                     const colors = NFT_QUALITY_COLORS[category.key];
@@ -710,7 +672,7 @@ const Store = () => {
                     return (
                       <motion.div
                         key={nft.id}
-                        className={`relative rounded-xl p-4 border-2 transition-all duration-300 backdrop-blur-sm ${
+                        className={`relative rounded-lg md:rounded-xl p-3 md:p-4 border-2 transition-all duration-300 backdrop-blur-sm ${
                           isOwned 
                             ? 'border-green-400 bg-green-500/20 cursor-pointer shadow-lg shadow-green-500/20' 
                             : getNFTRemainingCount(nft.id) > 0
@@ -727,8 +689,8 @@ const Store = () => {
                         onMouseEnter={isOwned || getNFTRemainingCount(nft.id) > 0 ? playHoverSound : undefined}
                       >
                         {/* NFT Kartı - Arka Yüzü */}
-                        <div className={`relative w-full rounded-xl mb-3 overflow-hidden shadow-2xl ${
-                          category.key === 'legendary' || category.key === 'mythic' ? 'h-64' : 'h-56'
+                        <div className={`relative w-full rounded-lg md:rounded-xl mb-2 md:mb-3 overflow-hidden shadow-2xl ${
+                          category.key === 'legendary' || category.key === 'mythic' ? 'h-48 md:h-64' : 'h-40 md:h-56'
                         }`}>
                           {isOwned ? (
                             // Sahip olunan NFT - Ön yüzü göster
@@ -753,7 +715,7 @@ const Store = () => {
                            )}
                           
                           {/* Kalite Badge - Daha küçük ve daha az yer kaplayan */}
-                          <div className={`absolute top-2 left-2 px-2 py-0.5 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm z-10 ${
+                          <div className={`absolute top-1 md:top-2 left-1 md:left-2 px-1 md:px-2 py-0.5 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm z-10 ${
                             category.key === 'common' ? 'bg-gradient-to-r from-gray-500 to-gray-600 text-white border border-gray-400' :
                             category.key === 'rare' ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white border border-blue-400' :
                             category.key === 'legendary' ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white border border-purple-400' :
@@ -767,28 +729,26 @@ const Store = () => {
                           
                           {/* Sahip olma durumu */}
                           {isOwned && (
-                            <div className="absolute top-2 right-2 w-6 h-6 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-lg border border-green-400 z-10">
-                              <span className="text-green-100 text-sm font-bold">✓</span>
+                            <div className="absolute top-1 md:top-2 right-1 md:right-2 w-5 h-5 md:w-6 md:h-6 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-lg border border-green-400 z-10">
+                              <span className="text-green-100 text-xs md:text-sm font-bold">✓</span>
                             </div>
                           )}
 
-
-
                           {/* Tükenmiş badge */}
                           {!isOwned && getNFTRemainingCount(nft.id) <= 0 && (
-                            <div className="absolute top-2 right-2 w-6 h-6 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center shadow-lg border border-red-400 z-10">
-                              <span className="text-red-100 text-sm font-bold">×</span>
+                            <div className="absolute top-1 md:top-2 right-1 md:right-2 w-5 h-5 md:w-6 md:h-6 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center shadow-lg border border-red-400 z-10">
+                              <span className="text-red-100 text-xs md:text-sm font-bold">×</span>
                             </div>
                           )}
                         </div>
                         
-                        <p className={`text-sm font-medium text-center mb-2 ${isOwned ? 'text-green-200' : 'text-white'}`}>
+                        <p className={`text-xs md:text-sm font-medium text-center mb-1 md:mb-2 ${isOwned ? 'text-green-200' : 'text-white'}`}>
                           {nft.name}
                         </p>
                         
                         {/* Kalan adet bilgisi */}
                         {!isOwned && getNFTRemainingCount(nft.id) > 0 && (
-                          <p className="text-xs text-gray-400 text-center mb-2">
+                          <p className="text-xs text-gray-400 text-center mb-1 md:mb-2">
                             {nft.id === 'ashstripe' ? (
                               <span className="text-green-400 font-bold">ÜCRETSİZ</span>
                             ) : (
@@ -799,20 +759,20 @@ const Store = () => {
                         
                         {/* Sahip olunan NFT mesajı */}
                         {isOwned && nft.id === 'ashstripe' && (
-                          <p className="text-xs text-green-400 text-center mb-2 font-bold">
+                          <p className="text-xs text-green-400 text-center mb-1 md:mb-2 font-bold">
                             ZATEN SAHİPSİN
                           </p>
                         )}
 
                         {/* Tükenmiş mesajı */}
                         {!isOwned && getNFTRemainingCount(nft.id) <= 0 && (
-                          <p className="text-xs text-red-400 text-center mb-2">
+                          <p className="text-xs text-red-400 text-center mb-1 md:mb-2">
                             {t('soldOut')}
                           </p>
                         )}
                         
                         {!isOwned && getNFTRemainingCount(nft.id) > 0 && (
-                          <div className="flex items-center justify-center space-x-2 mt-3 p-2 bg-gray-800/50 rounded-lg border border-gray-600">
+                          <div className="flex items-center justify-center space-x-1 md:space-x-2 mt-2 md:mt-3 p-1 md:p-2 bg-gray-800/50 rounded-lg border border-gray-600">
                             {nft.id === 'ashstripe' ? (
                               <button
                                 onClick={(e) => {
@@ -823,7 +783,7 @@ const Store = () => {
                                   }
                                 }}
                                 onMouseEnter={!isOwned ? playHoverSound : undefined}
-                                className={`w-full px-4 py-2 rounded-lg font-bold transition-all duration-300 ${
+                                className={`w-full px-2 md:px-4 py-1 md:py-2 rounded-lg font-bold transition-all duration-300 text-xs md:text-sm ${
                                   isOwned 
                                     ? 'bg-gray-600 text-gray-400 cursor-not-allowed' 
                                     : 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg'
@@ -834,24 +794,22 @@ const Store = () => {
                               </button>
                             ) : (
                               <>
-                                <img src="/spx.png" alt="SPX" className="w-5 h-5 rounded-full" />
-                                <span className={`text-sm font-bold ${colors.price}`}>{category.price} SPX</span>
+                                <img src="/spx.png" alt="SPX" className="w-4 h-4 md:w-5 md:h-5 rounded-full" />
+                                <span className={`text-xs md:text-sm font-bold ${colors.price}`}>{category.price} SPX</span>
                               </>
                             )}
                           </div>
                         )}
-                        
-                          
                       </motion.div>
                     )
                   })}
                 </div>
                 
-                <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl p-4 border border-gray-600">
-                  <div className="flex items-center justify-center mb-3">
-                    <h3 className="text-white font-bold text-lg">{t('remainingQuantities')}</h3>
+                <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-lg md:rounded-xl p-3 md:p-4 border border-gray-600">
+                  <div className="flex items-center justify-center mb-2 md:mb-3">
+                    <h3 className="text-white font-bold text-sm md:text-lg">{t('remainingQuantities')}</h3>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-3">
                     {category.nfts.map(nft => {
                       const remainingCount = getNFTRemainingCount(nft.id);
                       const percentage = (remainingCount / category.maxSupply) * 100;
@@ -867,7 +825,7 @@ const Store = () => {
                           <div className="text-center">
                             <p className="text-white text-xs font-medium mb-1 truncate">{nft.name}</p>
                             <div className="flex items-center justify-center space-x-1">
-                              <span className={`text-sm font-bold ${colorClass}`}>
+                              <span className={`text-xs md:text-sm font-bold ${colorClass}`}>
                                 {remainingCount.toLocaleString()}
                               </span>
                               <span className="text-gray-400 text-xs">/ {category.maxSupply.toLocaleString()}</span>
@@ -889,12 +847,10 @@ const Store = () => {
                     })}
                   </div>
                 </div>
-
               </div>
             ))}
           </motion.div>
         )}
-
       </div>
     </div>
   )

@@ -9,7 +9,7 @@ import { useLanguage } from '../contexts/LanguageContext'
 
 
 const Dashboard = () => {
-  const { user, coins, highScore, snakeColor, spxBalance, convertCoinsToSpx, updateCoins, updateSpxBalance, addTestSpx, selectedNFTCharacter } = useAuthStore()
+  const { user, coins, highScore, snakeColor, spxBalance, convertCoinsToSpx, updateCoins, updateSpxBalance, selectedNFTCharacter } = useAuthStore()
   const { playButtonClick, playHoverSound } = useSound()
   const { getActiveTasks, getCompletedTasks, getTotalReward } = useDailyTasks()
   const { getUnlockedAchievements, getTotalReward: getAchievementReward } = useAchievements()
@@ -119,15 +119,6 @@ const Dashboard = () => {
     setConvertError('')
   }
 
-  const handleAddTestSpx = () => {
-    const result = addTestSpx(1000)
-    if (result.success) {
-      alert(t('spxAdded'))
-    }
-  }
-
-
-
   const quickConvertAmounts = [100, 200, 500, 1000]
 
   // Güvenli veri alma fonksiyonları
@@ -183,13 +174,13 @@ const Dashboard = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
-                          <img src="/yazı.png" alt="Serpyx Yazı" className="h-20 mx-auto mb-6" />
-          <h1 className="text-4xl font-bold text-white mb-4">
-                          {t('welcomeMessage')}, <span className="text-snake-400">{user?.username || t('player')}</span>! <img src="/yazı.png" alt="Serpyx" className="inline-block h-12 w-auto ml-2" />
+          <img src="/yazı.png" alt="Serpyx Yazı" className="h-16 md:h-20 mx-auto mb-4 md:mb-6" />
+          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 md:mb-4">
+            {t('welcomeMessage')}, <span className="text-snake-400">{user?.username || t('player')}</span>! <img src="/yazı.png" alt="Serpyx" className="inline-block h-8 md:h-12 w-auto ml-2" />
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             {t('dashboardDescription')}
           </p>
         </motion.div>
@@ -199,7 +190,7 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -207,17 +198,17 @@ const Dashboard = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
-              className={`${stat.bgColor} backdrop-blur-sm rounded-2xl p-6 border ${stat.borderColor} text-center`}
+              className={`${stat.bgColor} backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border ${stat.borderColor} text-center`}
             >
-              <div className="flex items-center justify-center mb-4">
+              <div className="flex items-center justify-center mb-3 md:mb-4">
                 {stat.isImage ? (
-                  <img src={stat.icon} alt={stat.title} className="w-8 h-8 rounded-full" />
+                  <img src={stat.icon} alt={stat.title} className="w-6 h-6 md:w-8 md:h-8 rounded-full" />
                 ) : (
-                  <span className="text-3xl">{stat.icon}</span>
+                  <span className="text-2xl md:text-3xl">{stat.icon}</span>
                 )}
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{stat.title}</h3>
-              <p className={`text-3xl font-bold ${stat.color}`}>
+              <h3 className="text-base md:text-lg font-bold text-white mb-2">{stat.title}</h3>
+              <p className={`text-2xl md:text-3xl font-bold ${stat.color}`}>
                 {stat.value.toLocaleString()}
               </p>
             </motion.div>
@@ -229,25 +220,25 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-12"
         >
           {/* Coin to SPX Converter */}
-          <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-sm rounded-2xl p-6 border border-purple-500/30">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-white">{t('coinToSpx')}</h3>
-              <span className="text-2xl">💱</span>
+          <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-purple-500/30">
+            <div className="flex items-center justify-between mb-3 md:mb-4">
+              <h3 className="text-lg md:text-xl font-bold text-white">{t('coinToSpx')}</h3>
+              <span className="text-xl md:text-2xl">💱</span>
             </div>
-            <p className="text-gray-300 mb-4">
+            <p className="text-sm md:text-base text-gray-300 mb-3 md:mb-4">
               {t('convertRate')}
             </p>
             <div className="flex items-center justify-between">
-              <span className="text-purple-400 font-bold">
+              <span className="text-purple-400 font-bold text-sm md:text-base">
                 {Math.floor((coins || 0) / 100)} SPX
               </span>
               <button
                 onClick={() => setShowConvertModal(true)}
                 disabled={(coins || 0) < 100}
-                className={`px-6 py-2 rounded-xl font-bold transition-all duration-300 ${
+                className={`px-4 md:px-6 py-2 rounded-lg md:rounded-xl font-bold transition-all duration-300 text-sm md:text-base ${
                   (coins || 0) >= 100 
                     ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white hover:shadow-lg' 
                     : 'bg-gray-600 text-gray-400 cursor-not-allowed'
@@ -258,58 +249,61 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Test SPX Button */}
-          <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-2xl p-6 border border-blue-500/30">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-white">{t('testSpx')}</h3>
-              <span className="text-2xl">🧪</span>
+          {/* Daily Bonus */}
+          <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-green-500/30">
+            <div className="flex items-center justify-between mb-3 md:mb-4">
+              <h3 className="text-lg md:text-xl font-bold text-white">Günlük Bonus</h3>
+              <span className="text-xl md:text-2xl">🎁</span>
             </div>
-            <p className="text-gray-300 mb-4">
-              {t('addTestSpxDesc')}
+            <p className="text-sm md:text-base text-gray-300 mb-3 md:mb-4">
+              Her gün giriş yaparak bonus coin kazanın!
             </p>
             <div className="flex items-center justify-between">
-              <span className="text-blue-400 font-bold">
-                {t('current')}: {spxBalance || 0} SPX
+              <span className="text-green-400 font-bold text-sm md:text-base">
+                +50 Coin
               </span>
               <button
-                onClick={handleAddTestSpx}
-                className="px-6 py-2 rounded-xl font-bold transition-all duration-300 bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:shadow-lg"
+                onClick={() => {
+                  // Günlük bonus sistemi burada implement edilecek
+                  alert('Günlük bonus sistemi yakında eklenecek!');
+                }}
+                className="px-4 md:px-6 py-2 rounded-lg md:rounded-xl font-bold transition-all duration-300 bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg text-sm md:text-base"
               >
-                {t('add1000Spx')}
+                Al
               </button>
             </div>
           </div>
         </motion.div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {/* Daily Tasks */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }} 
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700"
+            className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-gray-700"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-white">{t('dailyTasks')}</h3>
+            <div className="flex items-center justify-between mb-4 md:mb-6">
+              <h3 className="text-lg md:text-xl font-bold text-white">{t('dailyTasks')}</h3>
               <Link 
                 to="/tasks" 
-                className="text-snake-400 hover:text-snake-300 transition-colors"
+                className="text-snake-400 hover:text-snake-300 transition-colors text-sm md:text-base"
                 onMouseEnter={playHoverSound}
               >
                 {t('seeAll')} →
               </Link>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {getActiveTasksSafe().slice(0, 3).map((task, index) => (
-                <div key={task.id} className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
+                <div key={task.id} className="bg-gray-800/50 rounded-lg md:rounded-xl p-3 md:p-4 border border-gray-700">
                   <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-medium text-white">{task.title}</h4>
-                    <span className="text-sm text-gray-400">
+                    <h4 className="font-medium text-white text-sm md:text-base">{task.title}</h4>
+                    <span className="text-xs md:text-sm text-gray-400">
                       {task.progress || 0}/{task.target}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-400 mb-3">{task.description}</p>
+                  <p className="text-xs md:text-sm text-gray-400 mb-2 md:mb-3">{task.description}</p>
                   <div className="w-full bg-gray-700 rounded-full h-2">
                     <div 
                       className="bg-gradient-to-r from-snake-400 to-snake-600 h-2 rounded-full transition-all duration-300"
@@ -319,7 +313,7 @@ const Dashboard = () => {
                 </div>
               ))}
               {getActiveTasksSafe().length === 0 && (
-                <p className="text-gray-400 text-center py-4">{t('allTasksCompleted')}</p>
+                <p className="text-gray-400 text-center py-4 text-sm md:text-base">{t('allTasksCompleted')}</p>
               )}
             </div>
           </motion.div>
@@ -329,33 +323,33 @@ const Dashboard = () => {
             initial={{ opacity: 0, x: 20 }} 
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
-            className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700"
+            className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-gray-700"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-white">{t('recentAchievements')}</h3>
+            <div className="flex items-center justify-between mb-4 md:mb-6">
+              <h3 className="text-lg md:text-xl font-bold text-white">{t('recentAchievements')}</h3>
               <Link 
                 to="/tasks" 
-                className="text-snake-400 hover:text-snake-300 transition-colors"
+                className="text-snake-400 hover:text-snake-300 transition-colors text-sm md:text-base"
                 onMouseEnter={playHoverSound}
               >
                 {t('seeAll')} →
               </Link>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {getUnlockedAchievementsSafe().slice(0, 3).map((achievement, index) => (
-                <div key={achievement.id} className="bg-gradient-to-br from-yellow-500/10 to-yellow-600/10 rounded-xl p-4 border border-yellow-500/20">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">{achievement.icon}</span>
+                <div key={achievement.id} className="bg-gradient-to-br from-yellow-500/10 to-yellow-600/10 rounded-lg md:rounded-xl p-3 md:p-4 border border-yellow-500/20">
+                  <div className="flex items-center space-x-2 md:space-x-3">
+                    <span className="text-xl md:text-2xl">{achievement.icon}</span>
                     <div className="flex-1">
-                      <h4 className="font-medium text-white">{achievement.title}</h4>
-                      <p className="text-sm text-gray-400">{achievement.description}</p>
+                      <h4 className="font-medium text-white text-sm md:text-base">{achievement.title}</h4>
+                      <p className="text-xs md:text-sm text-gray-400">{achievement.description}</p>
                     </div>
-                    <span className="text-yellow-400 font-bold">+{achievement.reward}</span>
+                    <span className="text-yellow-400 font-bold text-sm md:text-base">+{achievement.reward}</span>
                   </div>
                 </div>
               ))}
               {getUnlockedAchievementsSafe().length === 0 && (
-                <p className="text-gray-400 text-center py-4">{t('noAchievementsYet')}</p>
+                <p className="text-gray-400 text-center py-4 text-sm md:text-base">{t('noAchievementsYet')}</p>
               )}
             </div>
           </motion.div>
@@ -366,25 +360,25 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-12"
+          className="mt-8 md:mt-12"
         >
-          <div className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-white">{t('leaderboard')}</h3>
+          <div className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-gray-700">
+            <div className="flex items-center justify-between mb-4 md:mb-6">
+              <h3 className="text-lg md:text-xl font-bold text-white">{t('leaderboard')}</h3>
               <Link 
                 to="/leaderboard" 
-                className="text-snake-400 hover:text-snake-300 transition-colors"
+                className="text-snake-400 hover:text-snake-300 transition-colors text-sm md:text-base"
                 onMouseEnter={playHoverSound}
               >
                 {t('seeAll')} →
               </Link>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {leaderboard.map((player, index) => (
-                <div key={player.username} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-xl border border-gray-700">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-lg font-bold text-gray-400">#{index + 1}</span>
-                    <div className="w-8 h-8 bg-gradient-to-r from-snake-400 to-snake-600 rounded-full flex items-center justify-center overflow-hidden border border-snake-500">
+                <div key={player.username} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg md:rounded-xl border border-gray-700">
+                  <div className="flex items-center space-x-2 md:space-x-3">
+                    <span className="text-base md:text-lg font-bold text-gray-400">#{index + 1}</span>
+                    <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-snake-400 to-snake-600 rounded-full flex items-center justify-center overflow-hidden border border-snake-500">
                       {(() => {
                         // Mevcut kullanıcı için Zustand store'dan, diğerleri için localStorage'dan al
                         let nftData = player.selectedNFTCharacter;
@@ -400,18 +394,18 @@ const Dashboard = () => {
                             style={{ objectPosition: 'center 30%' }}
                           />
                         ) : (
-                          <span className="text-sm">🐍</span>
+                          <span className="text-xs md:text-sm">🐍</span>
                         );
                       })()}
                     </div>
 
                     <div>
-                      <p className="font-medium text-white">{player.username}</p>
-                      <p className="text-sm text-gray-400">{player.coins} coin</p>
+                      <p className="font-medium text-white text-sm md:text-base">{player.username}</p>
+                      <p className="text-xs md:text-sm text-gray-400">{player.coins} coin</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-snake-400 font-bold">{player.highScore}</p>
+                    <p className="text-snake-400 font-bold text-sm md:text-base">{player.highScore}</p>
                     <p className="text-xs text-gray-400">{t('highestScore')}</p>
                   </div>
                 </div>

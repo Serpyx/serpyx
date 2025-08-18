@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useAuthStore } from '../hooks/useAuthStore'
 import { useSound } from '../hooks/useSound'
 import { useLanguage } from '../contexts/LanguageContext'
+import AdBanner from '../components/AdBanner'
 
 const Home = () => {
   const { isAuthenticated } = useAuthStore()
@@ -291,6 +292,17 @@ const Home = () => {
                 📋 {t('detailedRoadmap')}
               </Link>
             </motion.div>
+          </div>
+        </section>
+
+        {/* Reklam Alanı */}
+        <section className="py-8 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <AdBanner 
+              adSlot="1234567890"
+              className="text-center"
+              style={{ minHeight: '90px' }}
+            />
           </div>
         </section>
 

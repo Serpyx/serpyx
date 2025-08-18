@@ -98,7 +98,7 @@ const Profile = () => {
     setPasswordSuccess('')
 
     try {
-      const API_BASE_URL = 'https://serpyx.onrender.com'
+      const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://serpyx.com' : 'http://localhost:80'
       const response = await fetch(`${API_BASE_URL}/api/change-password`, {
         method: 'POST',
         headers: {
@@ -173,23 +173,16 @@ const Profile = () => {
     console.log('Cleared all user data from localStorage for:', username)
   }
 
-  const handleDeleteAccount = async (e) => {
-    e.preventDefault()
-    if (!deleteForm.email || !deleteForm.password) {
-      setDeleteError(t('fillAllFields'))
+  const handleDeleteAccount = async () => {
+    if (!window.confirm('Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz!')) {
       return
     }
-    
-    if (deleteForm.email !== user?.email) {
-      setDeleteError(t('emailMismatch'))
-      return
-    }
-    
+
     setIsDeletingAccount(true)
     setDeleteError('')
 
     try {
-      const API_BASE_URL = 'https://serpyx.onrender.com'
+      const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://serpyx.com' : 'http://localhost:80'
       const response = await fetch(`${API_BASE_URL}/api/delete-account`, {
         method: 'POST',
         headers: {

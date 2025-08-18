@@ -68,7 +68,7 @@ const ResetPassword = () => {
     setError('')
 
     try {
-      const API_BASE_URL = 'https://serpyx.onrender.com'
+      const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://serpyx.com' : 'http://localhost:80'
       const response = await fetch(`${API_BASE_URL}/api/reset-password`, {
         method: 'POST',
         headers: {

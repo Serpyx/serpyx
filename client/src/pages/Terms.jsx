@@ -16,7 +16,7 @@ const Terms = () => {
           className="text-center mb-12"
         >
           <h1 className="text-4xl font-bold text-white mb-4">Kullanım Şartları</h1>
-          <p className="text-gray-400">Son güncelleme: 7 Ağustos 2024</p>
+          <p className="text-gray-400">Son güncelleme: 16.08.2025</p>
         </motion.div>
 
         {/* Content */}
@@ -28,132 +28,88 @@ const Terms = () => {
         >
           <div className="prose prose-invert max-w-none">
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">1. Genel Hükümler</h2>
+              <h2 className="text-2xl font-bold text-white mb-4">1. Hizmetin Tanımı</h2>
               <p className="text-gray-300 mb-4">
-                Serpyx oyun platformunu kullanarak aşağıdaki şartları kabul etmiş sayılırsınız. 
-                Bu şartlar, platformun kullanımı ile ilgili tüm hak ve yükümlülükleri düzenler.
+                serpyx.com, kullanıcıların oyun oynayarak SPX Coin adlı sanal oyun içi varlıklar kazanmasına imkân tanır.
               </p>
-              <p className="text-gray-300">
-                Platform, 18 yaş ve üzeri kullanıcılar için tasarlanmıştır. 18 yaş altı kullanıcılar 
-                ebeveyn veya vasilerinin izni ile platformu kullanabilirler.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">2. Hesap Oluşturma ve Güvenlik</h2>
-              <ul className="text-gray-300 space-y-2">
-                <li>• Hesap oluştururken doğru ve güncel bilgiler vermekle yükümlüsünüz</li>
-                <li>• Hesap güvenliğinizden siz sorumlusunuz</li>
-                <li>• Şifrenizi kimseyle paylaşmamalısınız</li>
-                <li>• Şüpheli aktivite durumunda bizi bilgilendirmelisiniz</li>
-                <li>• Bir hesap oluşturma hakkınız vardır</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">3. Oyun Kuralları ve Davranış</h2>
               <p className="text-gray-300 mb-4">
-                Platformda aşağıdaki davranışlar kesinlikle yasaktır:
+                SPX Coin yalnızca oyun içi kullanım için tasarlanmış bir dijital varlıktır.
               </p>
-              <ul className="text-gray-300 space-y-2">
-                <li>• Hile yapmak, bot kullanmak veya otomatik oyun araçları</li>
-                <li>• Diğer kullanıcıları rahatsız etmek veya taciz etmek</li>
-                <li>• Uygunsuz, saldırgan veya yasadışı içerik paylaşmak</li>
-                <li>• Spam göndermek veya platformu kötüye kullanmak</li>
-                <li>• Telif hakkı ihlali yapmak</li>
-                <li>• Diğer kullanıcıların hesaplarını ele geçirmeye çalışmak</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">4. Sanal Para ve Ödüller</h2>
               <p className="text-gray-300 mb-4">
-                Platformda kazanılan coinler ve ödüller sanal değerlerdir ve gerçek para ile değiştirilemez.
+                SPX Coin:
               </p>
+              <ul className="text-gray-300 space-y-2 ml-6">
+                <li>• Kripto para değildir</li>
+                <li>• Resmî ödeme aracı değildir</li>
+                <li>• Yatırım aracı olarak kullanılamaz</li>
+                <li>• Gerçek dünyada parasal değere sahip değildir</li>
+              </ul>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-white mb-4">2. Hesap Açma</h2>
               <ul className="text-gray-300 space-y-2">
-                <li>• Coinler sadece platform içinde kullanılabilir</li>
-                <li>• Gerçek para değeri yoktur</li>
-                <li>• Platform kapatılırsa coinler kaybolabilir</li>
-                <li>• Coin transferi yapılamaz</li>
-                <li>• Hile ile kazanılan coinler silinebilir</li>
+                <li>• Kullanıcı, kayıt sırasında doğru, güncel ve eksiksiz bilgi vermekle yükümlüdür</li>
+                <li>• Kullanıcı hesabı kişiseldir; üçüncü kişilerle paylaşılması yasaktır</li>
+                <li>• 13 yaşından küçük kişiler Siteyi kullanamaz</li>
+                <li>• 13–18 yaş arasındaki kullanıcılar yalnızca ebeveyn izni ile katılabilir</li>
               </ul>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">5. Gizlilik ve Veri Kullanımı</h2>
-              <p className="text-gray-300 mb-4">
-                Kişisel verileriniz <Link to="/privacy" className="text-snake-400 hover:text-snake-300 underline">Gizlilik Politikamız</Link> 
-                kapsamında korunmaktadır.
-              </p>
+              <h2 className="text-2xl font-bold text-white mb-4">3. Sanal Varlıklar ve Ödemeler</h2>
               <ul className="text-gray-300 space-y-2">
-                <li>• E-posta adresiniz hesap yönetimi için kullanılır</li>
-                <li>• Oyun istatistikleriniz platformda saklanır</li>
-                <li>• Çerezler kullanıcı deneyimini iyileştirmek için kullanılır</li>
-                <li>• Verileriniz üçüncü taraflarla paylaşılmaz</li>
+                <li>• Kullanıcılar SPX Coin'leri oyun içinde kazanabilir veya üçüncü taraf ödeme sağlayıcıları aracılığıyla satın alabilir</li>
+                <li>• Tüm ödeme işlemleri bağımsız ödeme sağlayıcıları üzerinden yapılır; serpyx.com kullanıcıların kart bilgilerini asla saklamaz</li>
+                <li>• Satın alınan sanal varlıklar geri iade edilemez, iptal edilemez ve nakde çevrilemez</li>
               </ul>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">6. Fikri Mülkiyet Hakları</h2>
-              <p className="text-gray-300 mb-4">
-                Platform ve içeriği Serpyx'e aittir ve telif hakları korunmaktadır.
-              </p>
+              <h2 className="text-2xl font-bold text-white mb-4">4. Kullanım Kuralları</h2>
+              <p className="text-gray-300 mb-4">Kullanıcılar:</p>
               <ul className="text-gray-300 space-y-2">
-                <li>• Platform içeriğini kopyalayamazsınız</li>
-                <li>• Ticari amaçla kullanamazsınız</li>
-                <li>• Reverse engineering yapamazsınız</li>
-                <li>• Platform adını ve logosunu izinsiz kullanamazsınız</li>
+                <li>• Siteyi yalnızca kişisel, eğlence amaçlı kullanabilir</li>
+                <li>• SPX Coin veya oyun içi özellikler yasa dışı amaçlarla kullanılamaz</li>
+                <li>• Kara para aklama, yasa dışı bahis, kumar veya finansal dolandırıcılık amacıyla kullanmak kesinlikle yasaktır</li>
+                <li>• Siteye izinsiz erişim, hackleme, kopyalama veya tersine mühendislik girişimleri yasaktır</li>
               </ul>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">7. Sorumluluk Reddi</h2>
-              <p className="text-gray-300 mb-4">
-                Platform "olduğu gibi" sunulmaktadır ve aşağıdaki durumlardan sorumlu değiliz:
-              </p>
+              <h2 className="text-2xl font-bold text-white mb-4">5. Fikri Mülkiyet</h2>
               <ul className="text-gray-300 space-y-2">
-                <li>• Platform kesintileri veya teknik sorunlar</li>
-                <li>• Veri kaybı veya hesap erişim sorunları</li>
-                <li>• Üçüncü taraf hizmetlerin sorunları</li>
-                <li>• Kullanıcılar arası anlaşmazlıklar</li>
-                <li>• Sanal para kayıpları</li>
+                <li>• Site, oyun mekaniği, içerikler, grafikler, yazılımlar ve logolar serpyx.com'a aittir</li>
+                <li>• Kullanıcılar, bu içerikleri izinsiz kopyalayamaz, dağıtamaz veya ticari amaçla kullanamaz</li>
               </ul>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">8. Hesap Askıya Alma ve Kapatma</h2>
-              <p className="text-gray-300 mb-4">
-                Aşağıdaki durumlarda hesabınız askıya alınabilir veya kapatılabilir:
-              </p>
+              <h2 className="text-2xl font-bold text-white mb-4">6. Sorumluluk Reddi</h2>
               <ul className="text-gray-300 space-y-2">
-                <li>• Kullanım şartlarını ihlal etmek</li>
-                <li>• Hile yapmak veya bot kullanmak</li>
-                <li>• Diğer kullanıcıları rahatsız etmek</li>
-                <li>• Uygunsuz davranış sergilemek</li>
-                <li>• Platform güvenliğini tehdit etmek</li>
+                <li>• serpyx.com, hizmetin kesintisiz veya hatasız olacağını garanti etmez</li>
+                <li>• Kullanıcı, Siteyi kendi sorumluluğu altında kullandığını kabul eder</li>
+                <li>• SPX Coin veya dijital ürünlerin gerçek dünyada bir değeri olmadığı açıkça beyan edilmektedir</li>
               </ul>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">9. Değişiklikler</h2>
-              <p className="text-gray-300">
-                Bu kullanım şartları önceden haber vermeksizin değiştirilebilir. 
-                Değişiklikler platformda yayınlandığı tarihten itibaren geçerli olur. 
-                Platformu kullanmaya devam etmeniz, güncellenmiş şartları kabul ettiğiniz anlamına gelir.
-              </p>
+              <h2 className="text-2xl font-bold text-white mb-4">7. Hesap Sonlandırma</h2>
+              <ul className="text-gray-300 space-y-2">
+                <li>• serpyx.com, kullanım koşullarını ihlal eden kullanıcıların hesaplarını kapatma hakkını saklı tutar</li>
+                <li>• Kullanıcı, hesabını istediği zaman kapatma hakkına sahiptir</li>
+              </ul>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-4">10. İletişim</h2>
-              <p className="text-gray-300">
-                Kullanım şartları ile ilgili sorularınız için lütfen bizimle iletişime geçin:
-              </p>
-              <ul className="text-gray-300 space-y-2 mt-4">
-                <li>• E-posta: support@serpyx.com</li>
-                <li>• Discord: discord.gg/serpyx</li>
-                <li>• Twitter: @serpyx_game</li>
+              <h2 className="text-2xl font-bold text-white mb-4">8. Yürürlük ve Yetki</h2>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Bu Koşullar, Türkiye Cumhuriyeti yasalarına tabidir</li>
+                <li>• Her türlü uyuşmazlıkta Eskişehir Mahkemeleri ve İcra Daireleri yetkilidir</li>
               </ul>
             </section>
+
+
           </div>
         </motion.div>
 

@@ -67,7 +67,7 @@ export const useAuthStore = create(
       existingHighScore = 0;
       existingTotalScore = 0; // Toplam skor eklendi
       existingSnakeColor = '#22c55e';
-      existingSpxBalance = 1000; // Test amaçlı 1000 SPX
+      existingSpxBalance = 0; // Test SPX kaldırıldı - gerçek başlangıç değeri
       
       // Ashstripe NFT'sini otomatik ver
       const ashstripeNFT = {
@@ -822,17 +822,6 @@ export const useAuthStore = create(
   // Seçili NFT karakterini al
   getSelectedNFTCharacter: () => {
     return get().selectedNFTCharacter;
-  },
-
-  // Test amaçlı SPX ekleme fonksiyonu
-  addTestSpx: (amount = 1000) => {
-    const currentSpx = get().spxBalance;
-    const newSpx = currentSpx + amount;
-    
-    // SPX bakiyesini güncelle (Navbar'ı da günceller)
-    get().updateSpxBalance(newSpx);
-    
-    return { success: true, message: `${amount} SPX eklendi!` };
   },
 
   // Global NFT adetlerini başlat

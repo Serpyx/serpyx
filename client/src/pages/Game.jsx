@@ -7,6 +7,7 @@ import useDailyTasks from '../hooks/useDailyTasks'
 import useDailyBonus from '../hooks/useDailyBonus'
 import useAchievements from '../hooks/useAchievements'
 import { useLanguage } from '../contexts/LanguageContext'
+import AdBanner from '../components/AdBanner'
 
 const Game = () => {
   const canvasRef = useRef(null)
@@ -2228,6 +2229,21 @@ const Game = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Reklam Alanı - Oyun Sonrası */}
+      {gameState === 'gameOver' && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50"
+        >
+          <AdBanner 
+            adSlot="1234567891"
+            className="bg-white/10 backdrop-blur-sm rounded-lg p-2"
+            style={{ minHeight: '90px', width: '320px' }}
+          />
+        </motion.div>
+      )}
     </div>
   )
 }

@@ -73,17 +73,17 @@ const Navbar = () => {
     <>
       <nav className={`${currentThemeData.navbarClass} fixed top-0 left-0 right-0 z-50 backdrop-blur-xl shadow-2xl shadow-black/20`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16 md:h-20">
             {/* Logo */}
             <Link 
               to="/" 
-              className="flex items-center space-x-3 group flex-shrink-0"
+              className="flex items-center space-x-2 md:space-x-3 group flex-shrink-0"
               onClick={playButtonClick}
               onMouseEnter={playHoverSound}
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-snake-400 to-snake-600 rounded-lg blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
-                <img src="/yazı.png" alt="Serpyx Yazı" className="h-14 relative z-10 transform group-hover:scale-105 transition-transform duration-300" />
+                <img src="/yazı.png" alt="Serpyx Yazı" className="h-10 md:h-14 relative z-10 transform group-hover:scale-105 transition-transform duration-300" />
               </div>
             </Link>
 
@@ -274,7 +274,7 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-gray-700/50 bg-gray-800/50 backdrop-blur-sm rounded-b-2xl"
+              className="lg:hidden border-t border-gray-700/50 bg-gray-800/50 backdrop-blur-sm rounded-b-2xl max-h-96 overflow-y-auto"
             >
               <div className="px-4 pt-4 pb-6 space-y-2">
                 {navItems.map((item) => (
@@ -301,12 +301,12 @@ const Navbar = () => {
                 <div className="pt-4 border-t border-gray-700/50 mt-4">
                   <div className="px-4 py-3">
                     <div className="text-sm text-gray-400 mb-3">Tema Seçimi:</div>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 gap-2">
                       {Object.entries(themes).map(([key, theme]) => (
                         <button
                           key={key}
                           onClick={() => handleThemeChange(key)}
-                          className={`px-3 py-2 rounded-lg text-xs transition-all duration-300 flex items-center justify-between ${
+                          className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 flex items-center justify-between ${
                             currentTheme === key
                               ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
                               : 'text-gray-300 hover:bg-gray-700/50 hover:text-white'
@@ -414,13 +414,13 @@ const Navbar = () => {
           </button>
           
           {/* Tooltip */}
-          <div className="absolute right-0 top-10 w-80 bg-gray-900/95 border border-gray-700 rounded-lg p-4 shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+          <div className="absolute right-0 top-10 w-64 md:w-80 bg-gray-900/95 border border-gray-700 rounded-lg p-3 md:p-4 shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
             <div className="text-xs text-gray-300 leading-relaxed">
               <div className="flex items-center space-x-2 mb-2">
                 <span className="text-yellow-400">⚠️</span>
                 <span className="text-yellow-300 font-semibold">Bilgilendirme</span>
               </div>
-              <p className="text-gray-300">
+              <p className="text-gray-300 text-xs md:text-sm">
                 SPX ve coinler şu an sadece oyun içi puandır, gerçek kripto para değildir. 
                 Blockchain entegrasyonu planlanmaktadır fakat kesin bir vaat değildir.
               </p>
