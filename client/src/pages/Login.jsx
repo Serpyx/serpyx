@@ -60,7 +60,7 @@ const Login = () => {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 15000)
 
-      const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://serpyx.com' : 'http://localhost:80'
+      const API_BASE_URL = import.meta.env.PROD ? 'https://serpyx.com' : 'http://localhost:5000'
       const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: {
@@ -83,7 +83,7 @@ const Login = () => {
 
       if (response.ok && data.success) {
         playSuccessSound()
-        login(data.user, data.token)
+        login(data.user, data.token, data.refreshToken)
         navigate('/dashboard')
       } else {
         playErrorSound()

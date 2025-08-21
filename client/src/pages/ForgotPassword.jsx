@@ -32,7 +32,7 @@ const ForgotPassword = () => {
     setSuccess(false)
 
     try {
-      const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://serpyx.com' : 'http://localhost:80'
+      const API_BASE_URL = import.meta.env.PROD ? 'https://serpyx.com' : 'http://localhost:5000'
       const response = await fetch(`${API_BASE_URL}/api/forgot-password`, {
         method: 'POST',
         headers: {

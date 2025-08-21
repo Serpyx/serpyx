@@ -1,15 +1,181 @@
-import Database from 'better-sqlite3'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-class DatabaseService {
-  constructor() {
-    this.db = null
-    this.init()
+let db = null;
+
+export async function initDatabase() {
+  try {
+    db = await open({
+      filename: path.join(__dirname, '../database.sqlite'),
+      driver: sqlite3.Database
+    });
+
+    // Create users table
+    await db.exec(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT UNIQUE NOT NULL,
+        username TEXT NOT NULL,
+        password TEXT NOT NULL,
+        verificationToken TEXT,
+        verificationExpires DATETIME,
+        isVerified BOOLEAN DEFAULT FALSE,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create indexes
+    await db.exec(`
+      CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+      CREATE INDEX IF NOT EXISTS idx_users_verification_token ON users(verificationToken);
+    `);
+
+    console.log('✅ Database initialized successfully');
+  } catch (error) {
+    console.error('❌ Database initialization error:', error);
+    throw error;
   }
+}
+
+export async function createUser(userData) {
+  try {
+    const { email, username, password, verificationToken, verificationExpires, isVerified = false } = userData;
+    
+    const result = await db.run(`
+      INSERT INTO users (email, username, password, verificationToken, verificationExpires, isVerified)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `, [email, username, password, verificationToken, verificationExpires, isVerified]);
+
+    const user = await findUserById(result.lastID);
+    return user;
+  } catch (error) {
+    console.error('Create user error:', error);
+    throw error;
+  }
+}
+
+export async function findUserByEmail(email, verificationToken = null) {
+  try {
+    let query = 'SELECT * FROM users WHERE ';
+    let params = [];
+
+    if (verificationToken) {
+      query += 'verificationToken = ?';
+      params.push(verificationToken);
+    } else {
+      query += 'email = ?';
+      params.push(email);
+    }
+
+    const user = await db.get(query, params);
+    return user || null;
+  } catch (error) {
+    console.error('Find user by email error:', error);
+    throw error;
+  }
+}
+
+export async function findUserById(id) {
+  try {
+    const user = await db.get('SELECT * FROM users WHERE id = ?', [id]);
+    return user || null;
+  } catch (error) {
+    console.error('Find user by ID error:', error);
+    throw error;
+  }
+}
+
+export async function updateUserVerification(userId, isVerified) {
+  try {
+    await db.run(`
+      UPDATE users 
+      SET isVerified = ?, 
+          verificationToken = NULL, 
+          verificationExpires = NULL,
+          updatedAt = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `, [isVerified, userId]);
+
+    return true;
+  } catch (error) {
+    console.error('Update user verification error:', error);
+    throw error;
+  }
+}
+
+export async function updateUser(userId, updateData) {
+  try {
+    const fields = Object.keys(updateData).map(key => `${key} = ?`).join(', ');
+    const values = Object.values(updateData);
+    values.push(userId);
+
+    await db.run(`
+      UPDATE users 
+      SET ${fields}, updatedAt = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `, values);
+
+    return await findUserById(userId);
+  } catch (error) {
+    console.error('Update user error:', error);
+    throw error;
+  }
+}
+
+export async function deleteUser(userId) {
+  try {
+    await db.run('DELETE FROM users WHERE id = ?', [userId]);
+    return true;
+  } catch (error) {
+    console.error('Delete user error:', error);
+    throw error;
+  }
+}
+
+export async function getAllUsers() {
+  try {
+    const users = await db.all('SELECT id, email, username, isVerified, createdAt FROM users ORDER BY createdAt DESC');
+    return users;
+  } catch (error) {
+    console.error('Get all users error:', error);
+    throw error;
+  }
+}
+
+export async function getUserStats() {
+  try {
+    const stats = await db.get(`
+      SELECT 
+        COUNT(*) as totalUsers,
+        COUNT(CASE WHEN isVerified = 1 THEN 1 END) as verifiedUsers,
+        COUNT(CASE WHEN isVerified = 0 THEN 1 END) as unverifiedUsers
+      FROM users
+    `);
+    return stats;
+  } catch (error) {
+    console.error('Get user stats error:', error);
+    throw error;
+  }
+}
+
+// Database connection getter
+export function getDatabase() {
+  return db;
+}
+
+// Close database connection
+export async function closeDatabase() {
+  if (db) {
+    await db.close();
+    console.log('Database connection closed');
+  }
+}
 
   init() {
     try {

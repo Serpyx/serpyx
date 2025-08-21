@@ -557,6 +557,148 @@ class AuthController {
       })
     }
   }
+
+  // Refresh token
+  async refreshToken(req, res) {
+    try {
+      const { refreshToken } = req.body
+
+      if (!refreshToken) {
+        return res.status(400).json({
+          success: false,
+          message: 'Refresh token gereklidir'
+        })
+      }
+
+      // Verify refresh token
+      const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET || 'fallback-refresh-secret')
+
+      if (decoded.type !== 'refresh') {
+        return res.status(401).json({
+          success: false,
+          message: 'Geçersiz refresh token'
+        })
+      }
+
+      // Find user
+      const user = databaseService.findUserById(decoded.userId)
+
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: 'Kullanıcı bulunamadı'
+        })
+      }
+
+      // Generate new access token
+      const newAccessToken = jwt.sign(
+        { userId: user.id, email: user.email },
+        process.env.JWT_SECRET || 'fallback-secret',
+        { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+      )
+
+      // Generate new refresh token
+      const newRefreshToken = jwt.sign(
+        { userId: user.id, type: 'refresh' },
+        process.env.JWT_REFRESH_SECRET || 'fallback-refresh-secret',
+        { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d' }
+      )
+
+      res.json({
+        success: true,
+        message: 'Token yenilendi',
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          coins: user.coins,
+          highScore: user.highScore,
+          totalScore: user.totalScore,
+          isVerified: user.isVerified
+        }
+      })
+
+    } catch (error) {
+      console.error('Refresh token error:', error)
+      res.status(401).json({
+        success: false,
+        message: 'Geçersiz refresh token'
+      })
+    }
+  }
+}
+
+export default new AuthController()
+
+      const { refreshToken } = req.body
+
+      if (!refreshToken) {
+        return res.status(400).json({
+          success: false,
+          message: 'Refresh token gereklidir'
+        })
+      }
+
+      // Verify refresh token
+      const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET || 'fallback-refresh-secret')
+
+      if (decoded.type !== 'refresh') {
+        return res.status(401).json({
+          success: false,
+          message: 'Geçersiz refresh token'
+        })
+      }
+
+      // Find user
+      const user = databaseService.findUserById(decoded.userId)
+
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: 'Kullanıcı bulunamadı'
+        })
+      }
+
+      // Generate new access token
+      const newAccessToken = jwt.sign(
+        { userId: user.id, email: user.email },
+        process.env.JWT_SECRET || 'fallback-secret',
+        { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+      )
+
+      // Generate new refresh token
+      const newRefreshToken = jwt.sign(
+        { userId: user.id, type: 'refresh' },
+        process.env.JWT_REFRESH_SECRET || 'fallback-refresh-secret',
+        { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d' }
+      )
+
+      res.json({
+        success: true,
+        message: 'Token yenilendi',
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          coins: user.coins,
+          highScore: user.highScore,
+          totalScore: user.totalScore,
+          isVerified: user.isVerified
+        }
+      })
+
+    } catch (error) {
+      console.error('Refresh token error:', error)
+      res.status(401).json({
+        success: false,
+        message: 'Geçersiz refresh token'
+      })
+    }
+  }
 }
 
 export default new AuthController()

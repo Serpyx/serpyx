@@ -15,13 +15,14 @@ const Register = () => {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [focusedField, setFocusedField] = useState('')
   const [snakePosition, setSnakePosition] = useState({ x: 0, y: 0 })
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   
-  const { register, isAuthenticated } = useAuthStore()
+  const { login, isAuthenticated } = useAuthStore()
   const navigate = useNavigate()
   const { playButtonClick, playHoverSound, playSuccessSound, playErrorSound } = useSound()
   const { t } = useLanguage()
@@ -90,7 +91,7 @@ const Register = () => {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 15000)
 
-      const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://serpyx.com' : 'http://localhost:80'
+      const API_BASE_URL = import.meta.env.PROD ? 'https://serpyx.com' : 'http://localhost:5000'
       const response = await fetch(`${API_BASE_URL}/api/register`, {
         method: 'POST',
         headers: {
@@ -113,8 +114,12 @@ const Register = () => {
 
       if (response.ok && data.success) {
         playSuccessSound()
-        register(data.user, data.token)
-        navigate('/dashboard')
+        // Register'da token yok, sadece kullanıcı bilgisi var
+        // E-posta doğrulama gerekiyor
+        setSuccessMessage('Hesabınız başarıyla oluşturuldu! Lütfen e-posta adresinizi doğrulayın.')
+        setTimeout(() => {
+          navigate('/login')
+        }, 3000)
       } else {
         playErrorSound()
         
@@ -372,6 +377,20 @@ const Register = () => {
                     className="bg-red-500/20 border border-red-500/30 rounded-xl p-4 text-red-300 text-sm"
                   >
                     ⚠️ {error}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Success Message */}
+              <AnimatePresence>
+                {successMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="bg-green-500/20 border border-green-500/30 rounded-xl p-4 text-green-300 text-sm"
+                  >
+                    ✅ {successMessage}
                   </motion.div>
                 )}
               </AnimatePresence>

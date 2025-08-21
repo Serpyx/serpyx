@@ -6,130 +6,141 @@ export const useAuthStore = create(
     (set, get) => ({
       user: null,
       token: null,
-      isAuthenticated: false,
+      refreshToken: null,
+      isAuthenticated: false,  // Her zaman false başlamalı
       coins: 0,
       highScore: 0,
-      totalScore: 0, // Toplam skor eklendi
+      totalScore: 0,
       spxBalance: 0,
       snakeColor: '#22c55e',
-      selectedTheme: null, // Oyun alanı teması kaldırıldı
-      selectedCharacter: 'default', // 'default', 'nft-snake', etc.
-  selectedNFTCharacter: null, // Seçili NFT karakteri
+      selectedTheme: null,
+      selectedCharacter: 'default',
+      selectedNFTCharacter: null,
       campaignProgress: {},
       achievements: {},
-      activeSpxItems: [], // Aktif SPX ürünleri
-      activeTimers: {}, // Süreli ürünler için sayaçlar
-      usedOneGameItems: [], // Bir oyunluk kullanılan ürünler
-      ownedNFTs: [], // Sahip olunan NFT'ler
-      nftInventory: {}, // NFT envanteri (quality -> nft listesi)
-      globalNFTCounts: {}, // Global NFT adetleri (nftId -> kalan adet)
-  
-  login: (userData, token) => {
-    console.log('Store - Logging in with user data:', userData);
-    
-    // Check if user already exists in localStorage by username
-    const userKey = `serpyx-user-${userData.username}`;
-    const existingUserData = localStorage.getItem(userKey);
-    let existingCoins = 0;
-    let existingHighScore = 0;
-    let existingTotalScore = 0; // Toplam skor eklendi
-    let existingSnakeColor = '#22c55e';
-    let existingSpxBalance = 0;
-    let existingSelectedNFTCharacter = null;
-    let existingOwnedNFTs = [];
-    
-    if (existingUserData) {
-      try {
-        const parsed = JSON.parse(existingUserData);
-        existingCoins = parsed.coins || 0;
-        existingHighScore = parsed.highScore || 0;
-        existingTotalScore = parsed.totalScore || 0; // Toplam skor eklendi
-        existingSnakeColor = parsed.snakeColor || '#22c55e';
-        existingSpxBalance = parsed.spxBalance || 0;
-        existingSelectedNFTCharacter = parsed.selectedNFTCharacter || null;
-        existingOwnedNFTs = parsed.ownedNFTs || [];
-        console.log('Store - Found existing user data:', { 
+      activeSpxItems: [],
+      activeTimers: {},
+      usedOneGameItems: [],
+      ownedNFTs: [],
+      nftInventory: {},
+      globalNFTCounts: {},
+
+      login: (userData, token, refreshToken) => {
+        console.log('Store - Logging in with user data:', userData);
+        
+        // Token kontrolü - token yoksa login yapma
+        if (!token) {
+          console.error('Store - No token provided, login failed');
+          return false;
+        }
+        
+        // Check if user already exists in localStorage by email (not username)
+        const userKey = `serpyx-user-${userData.email}`;
+        const existingUserData = localStorage.getItem(userKey);
+        let existingCoins = 0;
+        let existingHighScore = 0;
+        let existingTotalScore = 0;
+        let existingSnakeColor = '#22c55e';
+        let existingSpxBalance = 0;
+        let existingSelectedNFTCharacter = null;
+        let existingOwnedNFTs = [];
+        
+        if (existingUserData) {
+          try {
+            const parsed = JSON.parse(existingUserData);
+            existingCoins = parsed.coins || 0;
+            existingHighScore = parsed.highScore || 0;
+            existingTotalScore = parsed.totalScore || 0;
+            existingSnakeColor = parsed.snakeColor || '#22c55e';
+            existingSpxBalance = parsed.spxBalance || 0;
+            existingSelectedNFTCharacter = parsed.selectedNFTCharacter || null;
+            existingOwnedNFTs = parsed.ownedNFTs || [];
+            console.log('Store - Found existing user data:', { 
+              coins: existingCoins, 
+              highScore: existingHighScore,
+              totalScore: existingTotalScore,
+              snakeColor: existingSnakeColor,
+              spxBalance: existingSpxBalance,
+              selectedNFTCharacter: existingSelectedNFTCharacter,
+              ownedNFTs: existingOwnedNFTs
+            });
+          } catch (e) {
+            console.log('Store - No existing user data found');
+          }
+        } else {
+          // Yeni kullanıcı için temiz başlangıç + Ashstripe NFT
+          console.log('Store - New user, starting with clean data + Ashstripe NFT');
+          existingCoins = 100; // Başlangıç coin'i
+          existingHighScore = 0;
+          existingTotalScore = 0;
+          existingSnakeColor = '#22c55e';
+          existingSpxBalance = 0;
+          
+          // Ashstripe NFT'sini otomatik ver
+          const ashstripeNFT = {
+            id: 'ashstripe',
+            name: 'Ashstripe',
+            image: '/Serpyx_NFT/common_quality/Ashstripe.png',
+            quality: 'common',
+            acquiredAt: new Date().toISOString()
+          };
+          
+          existingSelectedNFTCharacter = ashstripeNFT;
+          existingOwnedNFTs = [ashstripeNFT];
+        }
+        
+        const userWithData = { 
+          ...userData, 
           coins: existingCoins, 
           highScore: existingHighScore,
-          totalScore: existingTotalScore, // Toplam skor eklendi
+          totalScore: existingTotalScore,
+          snakeColor: existingSnakeColor,
+          spxBalance: existingSpxBalance
+        };
+        
+        set({
+          user: userWithData,
+          token,
+          refreshToken,
+          isAuthenticated: true,  // Sadece login'de true olmalı
+          coins: existingCoins,
+          highScore: existingHighScore,
+          totalScore: existingTotalScore,
           snakeColor: existingSnakeColor,
           spxBalance: existingSpxBalance,
           selectedNFTCharacter: existingSelectedNFTCharacter,
           ownedNFTs: existingOwnedNFTs
-        });
-      } catch (e) {
-        console.log('Store - No existing user data found');
-      }
-    } else {
-      // Yeni kullanıcı için temiz başlangıç + Ashstripe NFT
-      console.log('Store - New user, starting with clean data + Ashstripe NFT');
-      existingCoins = 100; // Başlangıç coin'i
-      existingHighScore = 0;
-      existingTotalScore = 0; // Toplam skor eklendi
-      existingSnakeColor = '#22c55e';
-      existingSpxBalance = 0; // Test SPX kaldırıldı - gerçek başlangıç değeri
+        })
+        
+        // Kullanıcı verisini localStorage'a kaydet (email ile)
+        const userDataToSave = {
+          username: userData.username,
+          email: userData.email,
+          coins: existingCoins,
+          highScore: existingHighScore,
+          totalScore: existingTotalScore,
+          snakeColor: existingSnakeColor,
+          spxBalance: existingSpxBalance,
+          selectedNFTCharacter: existingSelectedNFTCharacter,
+          ownedNFTs: existingOwnedNFTs,
+          lastUpdated: new Date().toISOString()
+        };
+        localStorage.setItem(userKey, JSON.stringify(userDataToSave));
+        console.log('Store - Saved user data to localStorage on login:', userDataToSave);
+        
+        return true; // Login başarılı
+      },
       
-      // Ashstripe NFT'sini otomatik ver
-      const ashstripeNFT = {
-        id: 'ashstripe',
-        name: 'Ashstripe',
-        image: '/Serpyx_NFT/common_quality/Ashstripe.png',
-        quality: 'common',
-        acquiredAt: new Date().toISOString()
-      };
-      
-      existingSelectedNFTCharacter = ashstripeNFT; // Varsayılan profil fotoğrafı
-      existingOwnedNFTs = [ashstripeNFT];
-    }
-    
-    const userWithData = { 
-      ...userData, 
-      coins: existingCoins, 
-      highScore: existingHighScore,
-      totalScore: existingTotalScore, // Toplam skor eklendi
-      snakeColor: existingSnakeColor,
-      spxBalance: existingSpxBalance
-    };
-    
-    set({
-      user: userWithData,
-      token,
-      isAuthenticated: true,
-      coins: existingCoins,
-      highScore: existingHighScore,
-      totalScore: existingTotalScore, // Toplam skor eklendi
-      snakeColor: existingSnakeColor,
-      spxBalance: existingSpxBalance,
-      selectedNFTCharacter: existingSelectedNFTCharacter,
-      ownedNFTs: existingOwnedNFTs
-    })
-    
-    // Kullanıcı verisini localStorage'a kaydet
-    const userDataToSave = {
-      username: userData.username,
-      email: userData.email,
-      coins: existingCoins,
-      highScore: existingHighScore,
-      totalScore: existingTotalScore, // Toplam skor eklendi
-      snakeColor: existingSnakeColor,
-      spxBalance: existingSpxBalance,
-      selectedNFTCharacter: existingSelectedNFTCharacter,
-      ownedNFTs: existingOwnedNFTs,
-      lastUpdated: new Date().toISOString()
-    };
-    localStorage.setItem(userKey, JSON.stringify(userDataToSave));
-    console.log('Store - Saved user data to localStorage on login:', userDataToSave);
-  },
-  
-  logout: () => {
-    console.log('Store - Logging out, keeping user data but clearing auth');
-    set({
-      user: null,
-      token: null,
-      isAuthenticated: false,
-      // Keep coins and highScore in localStorage
-    })
-  },
+      logout: () => {
+        console.log('Store - Logging out, clearing auth but keeping user data');
+        set({
+          user: null,
+          token: null,
+          refreshToken: null,
+          isAuthenticated: false,
+          // Keep coins and highScore in localStorage
+        })
+      },
   
   updateCoins: (newCoins) => {
     const currentCoins = get().coins;
@@ -146,8 +157,8 @@ export const useAuthStore = create(
       };
       set({ user: updatedUser })
       
-      // Save user data to localStorage
-      const userKey = `serpyx-user-${currentUser.username}`;
+      // Save user data to localStorage - use email as key consistently
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         username: currentUser.username,
         email: currentUser.email,
@@ -171,9 +182,9 @@ export const useAuthStore = create(
     console.log('Store - Updating high score to', newScore);
     set({ highScore: newScore })
     
-    // Save user data to localStorage
+    // Save user data to localStorage - use email as key consistently
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         username: currentUser.username,
         email: currentUser.email,
@@ -199,9 +210,9 @@ export const useAuthStore = create(
     console.log('Store - Updating total score from', currentTotalScore, 'to', newTotalScore);
     set({ totalScore: newTotalScore })
     
-    // Save user data to localStorage
+    // Save user data to localStorage - use email as key consistently
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         username: currentUser.username,
         email: currentUser.email,
@@ -229,7 +240,7 @@ export const useAuthStore = create(
     set({ snakeColor: color });
     const currentUser = get().user;
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         ...currentUser,
         coins: get().coins,
@@ -252,7 +263,7 @@ export const useAuthStore = create(
     set({ selectedTheme: theme });
     const currentUser = get().user;
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         ...currentUser,
         coins: get().coins,
@@ -275,7 +286,7 @@ export const useAuthStore = create(
     set({ selectedCharacter: character })
     const currentUser = get().user;
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         ...currentUser,
         coins: get().coins,
@@ -299,7 +310,7 @@ export const useAuthStore = create(
     set({ campaignProgress: newProgress });
     const currentUser = get().user;
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         ...currentUser,
         coins: get().coins,
@@ -330,8 +341,8 @@ export const useAuthStore = create(
       };
       set({ user: updatedUser })
       
-      // Save user data to localStorage
-      const userKey = `serpyx-user-${currentUser.username}`;
+      // Save user data to localStorage - use email as key consistently
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         username: currentUser.username,
         email: currentUser.email,
@@ -486,7 +497,7 @@ export const useAuthStore = create(
       set({ achievements: newAchievements });
       const currentUser = get().user;
       if (currentUser) {
-        const userKey = `serpyx-user-${currentUser.username}`;
+        const userKey = `serpyx-user-${currentUser.email}`;
         const userData = {
           ...currentUser,
           coins: get().coins,
@@ -536,7 +547,7 @@ export const useAuthStore = create(
       
       // localStorage'a kaydet
       if (currentUser) {
-        const userKey = `serpyx-user-${currentUser.username}`;
+        const userKey = `serpyx-user-${currentUser.email}`;
         const userData = {
           ...currentUser,
           coins: get().coins,
@@ -599,7 +610,7 @@ export const useAuthStore = create(
     
     // localStorage'a kaydet
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const userData = {
         ...currentUser,
         coins: get().coins,
@@ -796,7 +807,7 @@ export const useAuthStore = create(
       // localStorage'a kaydet
       const currentUser = get().user;
       if (currentUser) {
-        const userKey = `serpyx-user-${currentUser.username}`;
+        const userKey = `serpyx-user-${currentUser.email}`;
         const userData = {
           ...currentUser,
           coins: get().coins,
@@ -923,7 +934,7 @@ export const useAuthStore = create(
     // Kullanıcı verisini localStorage'a kaydet
     const currentUser = get().user;
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const existingData = localStorage.getItem(userKey);
       let userData = existingData ? JSON.parse(existingData) : {};
       
@@ -939,21 +950,21 @@ export const useAuthStore = create(
     // Kullanıcı verisini localStorage'a kaydet
     const currentUser = get().user;
     if (currentUser) {
-      const userKey = `serpyx-user-${currentUser.username}`;
+      const userKey = `serpyx-user-${currentUser.email}`;
       const existingData = localStorage.getItem(userKey);
       let userData = existingData ? JSON.parse(existingData) : {};
       
       userData.ownedNFTs = nfts;
       localStorage.setItem(userKey, JSON.stringify(userData));
     }
-  },
+  }
     }),
     {
       name: 'serpyx-storage', // unique name for localStorage
       partialize: (state) => ({ 
         user: state.user,
         token: state.token,
-        isAuthenticated: state.isAuthenticated,
+        // isAuthenticated localStorage'a kaydedilmemeli - her sayfa yenilemesinde false olmalı
         coins: state.coins,
         highScore: state.highScore,
         totalScore: state.totalScore,
@@ -968,4 +979,5 @@ export const useAuthStore = create(
       })
     }
   )
+);
 )
